@@ -3,29 +3,44 @@ plugins {
     id 'application'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group   = 'rb.aczg'
+version = '1.0.0'
+
+// Força compilação com Java 21 independente do que o sistema tiver
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
-application {
-    mainClass = 'main.Linketinder'
-}
-
 dependencies {
-    implementation 'org.apache.groovy:groovy:4.0.15'
-    testImplementation platform('org.spockframework:spock-bom:2.3-groovy-4.0')
-    testImplementation 'org.spockframework:spock-core'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testRuntimeOnly 'net.bytebuddy:byte-buddy:1.14.7'
+    // Groovy embutido no Gradle (4.0.28) — compatível com Java 21
+    implementation localGroovy()
+
+    // PostgreSQL JDBC Driver
+    implementation 'org.postgresql:postgresql:42.7.3'
 }
 
-run {
-    standardInput = System.in
+application {
+    mainClass = 'rb.aczg.ui.MenuPrincipal'
 }
 
-test {
+jar {
+    manifest {
+        attributes 'Main-Class': 'rb.aczg.ui.MenuPrincipal'
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('test') {
     useJUnitPlatform()
 }

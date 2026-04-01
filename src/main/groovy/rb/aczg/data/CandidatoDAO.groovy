@@ -111,10 +111,10 @@ class CandidatoDAO {
             int linhas = stmt.executeUpdate()
 
             if (linhas > 0) {
-                println "✅ Candidato #${candidato.id} atualizado."
+                println "Candidato #${candidato.id} atualizado."
                 return true
             }
-            println "⚠️  Candidato #${candidato.id} não encontrado."
+            println "Candidato #${candidato.id} não encontrado."
             return false
         } finally {
             conexao.close()
@@ -132,10 +132,10 @@ class CandidatoDAO {
             stmt.setInt(1, id)
             int linhas = stmt.executeUpdate()
             if (linhas > 0) {
-                println "✅ Candidato #${id} removido."
+                println "Candidato #${id} removido."
                 return true
             }
-            println "⚠️  Candidato #${id} não encontrado."
+            println "Candidato #${id} não encontrado."
             return false
         } finally {
             conexao.close()

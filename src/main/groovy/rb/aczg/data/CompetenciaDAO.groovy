@@ -35,7 +35,6 @@ class CompetenciaDAO {
     }
 
     // READ
-
     List<Competencia> listarTodas() {
         String sql = "SELECT id, nome FROM competencias ORDER BY nome"
         List<Competencia> lista = []
