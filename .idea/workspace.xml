@@ -5,35 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="022eed36-60e0-43d6-b9fe-1983ed05091a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/9.0.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.0.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.0.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.0.0/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.0.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.0.0/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.0.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.0.0/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.0.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.0.0/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.0.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.0.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/main/Linketinder$_criarCandidatoManualmente_closure3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/main/Linketinder$_criarEmpresaManualmente_closure4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/main/Linketinder$_menu_closure1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/main/Linketinder$_menu_closure2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/main/Linketinder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/models/Candidato.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/models/Empresa.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/models/IPessoa.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/org/example/models/Pessoa.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/CandidatoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/CandidatoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/CandidatoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/CandidatoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/CompetenciaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/CompetenciaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/ConexaoBD.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/EmpresaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/EmpresaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/data/VagaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/VagaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Candidato.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Candidato.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Competencia.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Competencia.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Empresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Empresa.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Vaga.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/model/Vaga.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/EmpresaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuCandidato.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuCandidato.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuCompetencia.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuCompetencia.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuPrincipal.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuPrincipal.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +104,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/rb-linux/Downloads/linketinder-groovy&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/rb-linux/Downloads/linketinder-final&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,

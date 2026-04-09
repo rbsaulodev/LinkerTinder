@@ -1,4 +1,4 @@
-package rb.aczg.data
+package rb.aczg.dao
 
 import java.sql.Connection
 import java.sql.DriverManager
@@ -12,21 +12,20 @@ class ConexaoBD {
         InputStream stream = ConexaoBD.class.getResourceAsStream(PROPERTIES_FILE)
 
         if (!stream) {
-            throw new RuntimeException("Arquivo ${PROPERTIES_FILE} não encontrado no classpath.")
+            throw new RuntimeException("Arquivo ${PROPERTIES_FILE} nao encontrado no classpath.")
         }
 
         props.load(stream)
 
-        String url = props.getProperty('url')
+        String url     = props.getProperty('url')
         String usuario = props.getProperty('usuario')
-        String senha = props.getProperty('senha')
+        String senha   = props.getProperty('senha')
 
         try {
             Class.forName('org.postgresql.Driver')
-            Connection conexao = DriverManager.getConnection(url, usuario, senha)
-            return conexao
+            return DriverManager.getConnection(url, usuario, senha)
         } catch (Exception e) {
-            throw new RuntimeException("Falha ao conectar ao banco de dados: ${e.message}", e)
+            throw new RuntimeException("Falha ao conectar ao banco: ${e.message}", e)
         }
     }
 }

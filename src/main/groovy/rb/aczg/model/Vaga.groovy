@@ -1,26 +1,31 @@
 package rb.aczg.model
 
+import java.time.LocalDateTime
+
 class Vaga {
     int id
     int empresaId
     String nomeEmpresa
     String titulo
     String descricao
-    String local
-    BigDecimal salario
+    String status
+    LocalDateTime dataPublicacao
+    int enderecoId
+    Endereco endereco = new Endereco()
     List<Competencia> competencias = []
 
     @Override
-    public String toString() {
-        return "Vaga{" +
-                "id=" + id +
-                ", empresaId=" + empresaId +
-                ", nomeEmpresa='" + nomeEmpresa + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", local='" + local + '\'' +
-                ", salario=" + salario +
-                ", competencias=" + competencias +
-                '}';
+    String toString() {
+        String comps = competencias ? competencias*.nome.join(', ') : 'Nenhuma'
+        String local = endereco ? "${endereco.cidade} - ${endereco.estado}" : 'N/A'
+        """\
+--- VAGA #${id} ---
+  Titulo      : ${titulo}
+  Empresa     : ${nomeEmpresa ?: '#' + empresaId}
+  Status      : ${status ?: 'Aberta'}
+  Local       : ${local}
+  Descricao   : ${descricao ?: '-'}
+  Competencias: ${comps}
+"""
     }
 }

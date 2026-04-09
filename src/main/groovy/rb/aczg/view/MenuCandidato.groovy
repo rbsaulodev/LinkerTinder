@@ -1,9 +1,11 @@
 package rb.aczg.view
 
 import rb.aczg.model.Candidato
-import rb.aczg.model.Competencia
+import rb.aczg.model.Endereco
 import rb.aczg.model.Vaga
 import rb.aczg.service.CandidatoService
+
+import java.time.LocalDate
 
 class MenuCandidato {
 
@@ -17,79 +19,96 @@ class MenuCandidato {
     void exibir() {
         boolean voltar = false
         while (!voltar) {
-            println """
-MENU — CANDIDATOS
-            
-1. Cadastrar candidato             
-2. Listar todos os candidatos       
-3. Buscar candidato por ID          
-4. Atualizar candidato              
-5. Remover candidato                
-6. Adicionar competência            
-7. Remover competência              
-8. Ver vagas compatíveis (match)    
-0. Voltar                
-            """
-            print "Opção: "
-            String opcao = scanner.nextLine().trim()
+            println ""
+            println "--- MENU CANDIDATOS ---"
+            println "1.  Cadastrar candidato"
+            println "2.  Listar todos os candidatos"
+            println "3.  Buscar candidato por ID"
+            println "4.  Atualizar candidato"
+            println "5.  Remover candidato"
+            println "--- COMPETENCIAS ---"
+            println "6.  Adicionar competencia"
+            println "7.  Remover competencia"
+            println "--- INTERACOES ---"
+            println "8.  Ver vagas compativeis (match por competencias)"
+            println "9.  Curtir uma vaga"
+            println "0.  Voltar"
+            print "Opcao: "
 
+            String opcao = scanner.nextLine().trim()
             switch (opcao) {
-                case '1': cadastrar();  break
-                case '2': listarTodos();    break
-                case '3': buscarPorId();    break
-                case '4': atualizar();  break
-                case '5': remover();    break
-                case '6': adicionarComp();  break
-                case '7': removerComp();    break
-                case '8': verMatches(); break
-                case '0': voltar = true;    break
-                default:  println "Opção inválida."
+                case '1': cadastrar();     break
+                case '2': listarTodos();   break
+                case '3': buscarPorId();   break
+                case '4': atualizar();     break
+                case '5': remover();       break
+                case '6': adicionarComp(); break
+                case '7': removerComp();   break
+                case '8': verMatches();    break
+                case '9': curtirVaga();    break
+                case '0': voltar = true;   break
+                default:  println "Opcao invalida."
             }
         }
     }
 
     private void cadastrar() {
-        println "\n─── Novo Candidato ───"
+        println "\n--- Novo Candidato ---"
         Candidato c = new Candidato()
-        c.nome = ler("Nome: ")
+        c.nome      = ler("Nome: ")
         c.sobrenome = ler("Sobrenome: ")
-        c.email = ler("Email: ")
-        c.cpf = ler("CPF: ")
-        c.idade = lerInt("Idade: ")
-        c.estado = ler("Estado (UF): ")
-        c.cep = ler("CEP: ")
-        c.descricao = ler("Descrição (opcional): ")
+        c.email     = ler("Email: ")
+        c.cpf       = ler("CPF (somente numeros): ")
 
-        print "Competências (separadas por vírgula, ou deixe em branco): "
-        String comps = scanner.nextLine().trim()
-        if (comps) {
-            c.competencias = comps.split(',').collect { new Competencia(nome: it.trim()) }
+        // BUG CORRIGIDO: data_nasc no lugar de idade
+        String nasc = ler("Data de nascimento (AAAA-MM-DD): ")
+        try {
+            c.dataNasc = LocalDate.parse(nasc)
+        } catch (Exception e) {
+            println "Data invalida. Usando data padrao 2000-01-01."
+            c.dataNasc = LocalDate.of(2000, 1, 1)
         }
 
+        c.descricao = ler("Descricao (opcional): ")
+
+        // Endereco
+        c.endereco = new Endereco()
+        c.endereco.cep        = ler("CEP (somente numeros): ")
+        c.endereco.logradouro = ler("Logradouro/Rua: ")
+        c.endereco.numero     = ler("Numero: ")
+        c.endereco.complemento = ler("Complemento (opcional): ")
+        c.endereco.bairro     = ler("Bairro: ")
+        c.endereco.cidade     = ler("Cidade: ")
+        c.endereco.estado     = ler("Estado (UF): ")
+        c.endereco.pais       = ler("Pais: ")
+
+        print "Competencias (separadas por virgula, ou ENTER para pular): "
+        String comps = scanner.nextLine().trim()
+
         try {
-            service.cadastrar(c)
+            Candidato inserido = service.cadastrar(c)
+            if (comps) {
+                comps.split(',').each { nome ->
+                    if (nome.trim()) service.adicionarCompetencia(inserido.id, nome.trim())
+                }
+            }
+            println "Candidato cadastrado com sucesso! ID: ${inserido.id}"
         } catch (Exception e) {
-            println "❌ Erro: ${e.message}"
+            println "Erro: ${e.message}"
         }
     }
 
     private void listarTodos() {
         List<Candidato> lista = service.listarTodos()
-        if (lista.isEmpty()) {
-            println "\nNenhum candidato cadastrado."
-            return
-        }
-        println "\n─── Candidatos ───"
+        if (lista.isEmpty()) { println "\nNenhum candidato cadastrado."; return }
+        println "\n--- Lista de Candidatos ---"
         lista.each { println it }
     }
 
     private void buscarPorId() {
         int id = lerInt("ID do candidato: ")
-        try {
-            println service.buscarPorId(id)
-        } catch (Exception e) {
-            println "${e.message}"
-        }
+        try { println service.buscarPorId(id) }
+        catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void atualizar() {
@@ -97,71 +116,81 @@ MENU — CANDIDATOS
         try {
             Candidato c = service.buscarPorId(id)
             println "Deixe em branco para manter o valor atual."
+
             String nome = ler("Nome [${c.nome}]: ")
             if (nome) c.nome = nome
+
             String sob = ler("Sobrenome [${c.sobrenome}]: ")
             if (sob) c.sobrenome = sob
+
             String email = ler("Email [${c.email}]: ")
             if (email) c.email = email
-            String cpf = ler("CPF [${c.cpf}]: ")
-            if (cpf) c.cpf = cpf
-            String idade = ler("Idade [${c.idade}]: ")
-            if (idade) c.idade = idade.toInteger()
-            String estado = ler("Estado [${c.estado}]: ")
-            if (estado) c.estado = estado
-            String cep = ler("CEP [${c.cep}]: ")
-            if (cep) c.cep = cep
-            String desc = ler("Descrição [${c.descricao ?: ''}]: ")
+
+            String desc = ler("Descricao [${c.descricao ?: ''}]: ")
             if (desc) c.descricao = desc
+
+            println "--- Endereco (deixe em branco para manter) ---"
+            String logr = ler("Logradouro [${c.endereco.logradouro ?: ''}]: ")
+            if (logr) c.endereco.logradouro = logr
+
+            String cidade = ler("Cidade [${c.endereco.cidade ?: ''}]: ")
+            if (cidade) c.endereco.cidade = cidade
+
+            String est = ler("Estado [${c.endereco.estado ?: ''}]: ")
+            if (est) c.endereco.estado = est
+
             service.atualizar(c)
-        } catch (Exception e) {
-            println "${e.message}"
-        }
+            println "Candidato atualizado."
+        } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void remover() {
         int id = lerInt("ID do candidato a remover: ")
-        print "Confirmar remoção? (s/N): "
+        print "Confirmar remocao? (s/N): "
         if (scanner.nextLine().trim().equalsIgnoreCase('s')) {
             service.remover(id)
-        } else {
-            println "Operação cancelada."
-        }
+            println "Candidato removido."
+        } else { println "Operacao cancelada." }
     }
 
     private void adicionarComp() {
-        int id = lerInt("ID do candidato: ")
-        String comp = ler("Nome da competência: ")
+        int id      = lerInt("ID do candidato: ")
+        String nome = ler("Nome da competencia: ")
+        String nivel = ler("Nivel (Basico/Intermediario/Avancado, ou ENTER para pular): ")
         try {
-            service.adicionarCompetencia(id, comp)
-        } catch (Exception e) {
-            println "${e.message}"
-        }
+            service.adicionarCompetencia(id, nome, nivel ?: null)
+            println "Competencia adicionada."
+        } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void removerComp() {
-        int candidatoId   = lerInt("ID do candidato: ")
-        int competenciaId = lerInt("ID da competência: ")
+        int candId = lerInt("ID do candidato: ")
+        int compId = lerInt("ID da competencia: ")
         try {
-            service.removerCompetencia(candidatoId, competenciaId)
-        } catch (Exception e) {
-            println "${e.message}"
-        }
+            service.removerCompetencia(candId, compId)
+            println "Competencia removida."
+        } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void verMatches() {
         int id = lerInt("ID do candidato: ")
         try {
             List<Vaga> vagas = service.verMatchesDeVagas(id)
-            if (vagas.isEmpty()) {
-                println "\nNenhuma vaga compatível encontrada."
-            } else {
-                println "\n─── Vagas compatíveis ───"
+            if (vagas.isEmpty()) { println "\nNenhuma vaga compativel encontrada." }
+            else {
+                println "\n--- Vagas Compativeis por Competencia ---"
                 vagas.each { println it }
             }
-        } catch (Exception e) {
-            println "${e.message}"
-        }
+        } catch (Exception e) { println "Erro: ${e.message}" }
+    }
+
+    private void curtirVaga() {
+        int candidatoId = lerInt("ID do candidato: ")
+        int vagaId      = lerInt("ID da vaga: ")
+        try {
+            service.curtirVaga(candidatoId, vagaId)
+            println "Curtida registrada!"
+        } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private String ler(String label) {
@@ -172,12 +201,8 @@ MENU — CANDIDATOS
     private int lerInt(String label) {
         while (true) {
             print label
-            String entrada = scanner.nextLine().trim()
-            try {
-                return entrada.toInteger()
-            } catch (NumberFormatException ignored) {
-                println "Digite um número válido."
-            }
+            try { return scanner.nextLine().trim().toInteger() }
+            catch (NumberFormatException ignored) { println "Digite um numero valido." }
         }
     }
 }

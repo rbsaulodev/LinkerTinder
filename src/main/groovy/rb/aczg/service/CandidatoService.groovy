@@ -1,19 +1,25 @@
 package rb.aczg.service
 
-import rb.aczg.data.CandidatoDAO
-import rb.aczg.data.CompetenciaDAO
-import rb.aczg.data.VagaDAO
+import rb.aczg.dao.CandidatoDAO
+import rb.aczg.dao.CompetenciaDAO
+import rb.aczg.dao.EnderecoDAO
+import rb.aczg.dao.VagaDAO
 import rb.aczg.model.Candidato
 import rb.aczg.model.Competencia
 import rb.aczg.model.Vaga
 
 class CandidatoService {
 
-    private final CandidatoDAO candidatoDAO  = new CandidatoDAO()
+    private final CandidatoDAO candidatoDAO = new CandidatoDAO()
+    private final EnderecoDAO enderecoDAO = new EnderecoDAO()
     private final CompetenciaDAO competenciaDAO = new CompetenciaDAO()
+    private final VagaDAO vagaDAO = new VagaDAO()
 
     Candidato cadastrar(Candidato candidato) {
         validar(candidato)
+        if (candidato.endereco) {
+            candidato.endereco = enderecoDAO.inserir(candidato.endereco)
+        }
         return candidatoDAO.inserir(candidato)
     }
 
@@ -23,12 +29,15 @@ class CandidatoService {
 
     Candidato buscarPorId(int id) {
         Candidato c = candidatoDAO.buscarPorId(id)
-        if (!c) throw new RuntimeException("Candidato #${id} não encontrado.")
+        if (!c) throw new RuntimeException("Candidato #${id} nao encontrado.")
         return c
     }
 
     Candidato atualizar(Candidato candidato) {
         validar(candidato)
+        if (candidato.endereco?.id) {
+            enderecoDAO.atualizar(candidato.endereco)
+        }
         candidatoDAO.atualizar(candidato)
         return candidato
     }
@@ -37,29 +46,30 @@ class CandidatoService {
         candidatoDAO.deletar(id)
     }
 
-    void adicionarCompetencia(int candidatoId, String nomeCompetencia) {
-        Competencia comp = new Competencia(nome: nomeCompetencia)
-        comp = competenciaDAO.inserir(comp)
-        competenciaDAO.vincularCandidato(candidatoId, comp.id)
-        println "Competência '${comp.nome}' adicionada ao candidato #${candidatoId}."
+    void adicionarCompetencia(int candidatoId, String nomeCompetencia, String nivel = null) {
+        Competencia comp = competenciaDAO.inserir(new Competencia(nome: nomeCompetencia))
+        competenciaDAO.vincularCandidato(candidatoId, comp.id, nivel)
+        println "Competencia '${comp.nome}' adicionada ao candidato #${candidatoId}."
     }
 
     void removerCompetencia(int candidatoId, int competenciaId) {
         competenciaDAO.desvincularCandidato(candidatoId, competenciaId)
-        println "Competência #${competenciaId} removida do candidato #${candidatoId}."
+        println "Competencia #${competenciaId} removida do candidato #${candidatoId}."
     }
 
     List<Vaga> verMatchesDeVagas(int candidatoId) {
-        return new VagaDAO().matchPorCandidato(candidatoId)
+        return vagaDAO.matchPorCandidato(candidatoId)
+    }
+
+    void curtirVaga(int candidatoId, int vagaId) {
+        candidatoDAO.curtirVaga(candidatoId, vagaId)
+        vagaDAO.gerarMatchSeAmbosCurtiram(candidatoId, vagaId)
     }
 
     private void validar(Candidato c) {
-        if (!c.nome?.trim())      throw new IllegalArgumentException("Nome é obrigatório.")
-        if (!c.sobrenome?.trim()) throw new IllegalArgumentException("Sobrenome é obrigatório.")
-        if (!c.email?.trim())     throw new IllegalArgumentException("Email é obrigatório.")
-        if (!c.cpf?.trim())       throw new IllegalArgumentException("CPF é obrigatório.")
-        if (c.idade <= 0)         throw new IllegalArgumentException("Idade inválida.")
-        if (!c.estado?.trim())    throw new IllegalArgumentException("Estado é obrigatório.")
-        if (!c.cep?.trim())       throw new IllegalArgumentException("CEP é obrigatório.")
+        if (!c.nome?.trim())      throw new IllegalArgumentException("Nome e obrigatorio.")
+        if (!c.sobrenome?.trim()) throw new IllegalArgumentException("Sobrenome e obrigatorio.")
+        if (!c.email?.trim())     throw new IllegalArgumentException("Email e obrigatorio.")
+        if (!c.cpf?.trim())       throw new IllegalArgumentException("CPF e obrigatorio.")
     }
 }

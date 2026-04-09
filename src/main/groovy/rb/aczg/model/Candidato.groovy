@@ -1,30 +1,32 @@
 package rb.aczg.model
 
+import java.time.LocalDate
+
 class Candidato {
     int id
     String nome
     String sobrenome
     String email
     String cpf
-    int idade
-    String estado
-    String cep
+    LocalDate dataNasc
     String descricao
+    String senhaHash
+    Endereco endereco = new Endereco()
     List<Competencia> competencias = []
 
     @Override
-    public String toString() {
-        return "Candidato{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", email='" + email + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", idade=" + idade +
-                ", estado='" + estado + '\'' +
-                ", cep='" + cep + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", competencias=" + competencias +
-                '}';
+    String toString() {
+        String comps = competencias ? competencias*.nome.join(', ') : 'Nenhuma'
+        String local = endereco ? "${endereco.cidade} - ${endereco.estado}" : 'N/A'
+        """\
+--- CANDIDATO #${id} ---
+  Nome        : ${nome} ${sobrenome}
+  Email       : ${email}
+  CPF         : ${cpf}
+  Nascimento  : ${dataNasc}
+  Localizacao : ${local}
+  Descricao   : ${descricao ?: '-'}
+  Competencias: ${comps}
+"""
     }
 }
