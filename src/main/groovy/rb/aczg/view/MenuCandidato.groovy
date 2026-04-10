@@ -54,33 +54,31 @@ class MenuCandidato {
 
     private void cadastrar() {
         println "\n--- Novo Candidato ---"
-        Candidato c = new Candidato()
-        c.nome      = ler("Nome: ")
-        c.sobrenome = ler("Sobrenome: ")
-        c.email     = ler("Email: ")
-        c.cpf       = ler("CPF (somente numeros): ")
+        Candidato candidato = new Candidato()
+        candidato.nome = ler("Nome: ")
+        candidato.sobrenome = ler("Sobrenome: ")
+        candidato.email = ler("Email: ")
+        candidato.cpf = ler("CPF (somente numeros): ")
 
-        // BUG CORRIGIDO: data_nasc no lugar de idade
         String nasc = ler("Data de nascimento (AAAA-MM-DD): ")
         try {
-            c.dataNasc = LocalDate.parse(nasc)
+            candidato.dataNasc = LocalDate.parse(nasc)
         } catch (Exception e) {
             println "Data invalida. Usando data padrao 2000-01-01."
-            c.dataNasc = LocalDate.of(2000, 1, 1)
+            candidato.dataNasc = LocalDate.of(2000, 1, 1)
         }
 
-        c.descricao = ler("Descricao (opcional): ")
+        candidato.descricao = ler("Descricao (opcional): ")
 
-        // Endereco
-        c.endereco = new Endereco()
-        c.endereco.cep        = ler("CEP (somente numeros): ")
-        c.endereco.logradouro = ler("Logradouro/Rua: ")
-        c.endereco.numero     = ler("Numero: ")
-        c.endereco.complemento = ler("Complemento (opcional): ")
-        c.endereco.bairro     = ler("Bairro: ")
-        c.endereco.cidade     = ler("Cidade: ")
-        c.endereco.estado     = ler("Estado (UF): ")
-        c.endereco.pais       = ler("Pais: ")
+        candidato.endereco = new Endereco()
+        candidato.endereco.cep = ler("CEP (somente numeros): ")
+        candidato.endereco.logradouro = ler("Logradouro/Rua: ")
+        candidato.endereco.numero = ler("Numero: ")
+        candidato.endereco.complemento = ler("Complemento (opcional): ")
+        candidato.endereco.bairro = ler("Bairro: ")
+        candidato.endereco.cidade = ler("Cidade: ")
+        candidato.endereco.estado = ler("Estado (UF): ")
+        candidato.endereco.pais = ler("Pais: ")
 
         print "Competencias (separadas por virgula, ou ENTER para pular): "
         String comps = scanner.nextLine().trim()
@@ -114,30 +112,44 @@ class MenuCandidato {
     private void atualizar() {
         int id = lerInt("ID do candidato a atualizar: ")
         try {
-            Candidato c = service.buscarPorId(id)
+            Candidato candidato = service.buscarPorId(id)
             println "Deixe em branco para manter o valor atual."
 
-            String nome = ler("Nome [${c.nome}]: ")
-            if (nome) c.nome = nome
+            String nome = ler("Nome [${candidato.nome}]: ")
+            if (nome){
+                candidato.nome = nome
+            }
 
-            String sob = ler("Sobrenome [${c.sobrenome}]: ")
-            if (sob) c.sobrenome = sob
+            String sob = ler("Sobrenome [${candidato.sobrenome}]: ")
+            if (sob){
+                candidato.sobrenome = sob
+            }
 
-            String email = ler("Email [${c.email}]: ")
-            if (email) c.email = email
+            String email = ler("Email [${candidato.email}]: ")
+            if (email) {
+                candidato.email = email
+            }
 
-            String desc = ler("Descricao [${c.descricao ?: ''}]: ")
-            if (desc) c.descricao = desc
+            String desc = ler("Descricao [${candidato.descricao ?: ''}]: ")
+            if (desc){
+                candidato.descricao = desc
+            }
 
             println "--- Endereco (deixe em branco para manter) ---"
-            String logr = ler("Logradouro [${c.endereco.logradouro ?: ''}]: ")
-            if (logr) c.endereco.logradouro = logr
+            String logr = ler("Logradouro [${candidato.endereco.logradouro ?: ''}]: ")
+            if (logr) {
+                candidato.endereco.logradouro = logr
+            }
 
-            String cidade = ler("Cidade [${c.endereco.cidade ?: ''}]: ")
-            if (cidade) c.endereco.cidade = cidade
+            String cidade = ler("Cidade [${candidato.endereco.cidade ?: ''}]: ")
+            if (cidade){
+                candidato.endereco.cidade = cidade
+            }
 
-            String est = ler("Estado [${c.endereco.estado ?: ''}]: ")
-            if (est) c.endereco.estado = est
+            String est = ler("Estado [${candidato.endereco.estado ?: ''}]: ")
+            if (est) {
+                candidato.endereco.estado = est
+            }
 
             service.atualizar(c)
             println "Candidato atualizado."
@@ -154,7 +166,7 @@ class MenuCandidato {
     }
 
     private void adicionarComp() {
-        int id      = lerInt("ID do candidato: ")
+        int id = lerInt("ID do candidato: ")
         String nome = ler("Nome da competencia: ")
         String nivel = ler("Nivel (Basico/Intermediario/Avancado, ou ENTER para pular): ")
         try {

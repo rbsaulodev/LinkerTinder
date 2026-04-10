@@ -163,29 +163,29 @@ class CandidatoDAO {
             int eid = rs.getInt('eid')
             if (eid > 0) {
                 end = new Endereco(
-                        id:          eid,
-                        cep:         rs.getString('cep'),
+                        id: eid,
+                        cep: rs.getString('cep'),
                         logradouro:  rs.getString('logradouro'),
-                        numero:      rs.getString('numero'),
+                        numero: rs.getString('numero'),
                         complemento: rs.getString('complemento'),
-                        bairro:      rs.getString('bairro'),
-                        cidade:      rs.getString('cidade'),
-                        estado:      rs.getString('estado'),
-                        pais:        rs.getString('pais')
+                        bairro: rs.getString('bairro'),
+                        cidade: rs.getString('cidade'),
+                        estado: rs.getString('estado'),
+                        pais: rs.getString('pais')
                 )
             }
         } catch (Exception ignored) {}
 
         new Candidato(
-                id:        rs.getInt('id'),
-                nome:      rs.getString('nome'),
+                id: rs.getInt('id'),
+                nome: rs.getString('nome'),
                 sobrenome: rs.getString('sobrenome'),
-                email:     rs.getString('email'),
-                cpf:       rs.getString('cpf'),
-                dataNasc:  rs.getDate('data_nasc').toLocalDate(),
+                email: rs.getString('email'),
+                cpf: rs.getString('cpf'),
+                dataNasc: rs.getDate('data_nasc').toLocalDate(),
                 descricao: rs.getString('descricao'),
                 senhaHash: rs.getString('senha_hash'),
-                endereco:  end ?: new Endereco()
+                endereco: end ?: new Endereco()
         )
     }
 }

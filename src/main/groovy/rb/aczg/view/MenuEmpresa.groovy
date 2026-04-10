@@ -40,19 +40,19 @@ class MenuEmpresa {
 
             String opcao = scanner.nextLine().trim()
             switch (opcao) {
-                case '1':  cadastrar();           break
-                case '2':  listarTodas();         break
-                case '3':  buscarPorId();         break
-                case '4':  atualizar();           break
-                case '5':  remover();             break
-                case '6':  publicarVaga();        break
-                case '7':  listarVagas();         break
-                case '8':  atualizarVaga();       break
-                case '9':  removerVaga();         break
+                case '1':  cadastrar(); break
+                case '2':  listarTodas(); break
+                case '3':  buscarPorId(); break
+                case '4':  atualizar(); break
+                case '5':  remover(); break
+                case '6':  publicarVaga(); break
+                case '7':  listarVagas(); break
+                case '8':  atualizarVaga(); break
+                case '9':  removerVaga(); break
                 case '10': verCandidatosCompat(); break
-                case '11': curtirCandidato();     break
+                case '11': curtirCandidato(); break
                 case '12': verMatchesEmpresa();   break
-                case '0':  voltar = true;         break
+                case '0':  voltar = true; break
                 default:   println "Opcao invalida."
             }
         }
@@ -60,21 +60,21 @@ class MenuEmpresa {
 
     private void cadastrar() {
         println "\n--- Nova Empresa ---"
-        Empresa e = new Empresa()
-        e.nome      = ler("Nome da empresa: ")
-        e.email     = ler("Email: ")
-        e.cnpj      = ler("CNPJ (somente numeros): ")
-        e.descricao = ler("Descricao (opcional): ")
+        Empresa empresa = new Empresa()
+        empresa.nome = ler("Nome da empresa: ")
+        empresa.email = ler("Email: ")
+        empresa.cnpj = ler("CNPJ (somente numeros): ")
+        empresa.descricao = ler("Descricao (opcional): ")
 
-        e.endereco = new Endereco()
-        e.endereco.cep         = ler("CEP (somente numeros): ")
-        e.endereco.logradouro  = ler("Logradouro/Rua: ")
-        e.endereco.numero      = ler("Numero: ")
-        e.endereco.complemento = ler("Complemento (opcional): ")
-        e.endereco.bairro      = ler("Bairro: ")
-        e.endereco.cidade      = ler("Cidade: ")
-        e.endereco.estado      = ler("Estado (UF): ")
-        e.endereco.pais        = ler("Pais: ")
+        empresa.endereco = new Endereco()
+        empresa.endereco.cep = ler("CEP (somente numeros): ")
+        empresa.endereco.logradouro  = ler("Logradouro/Rua: ")
+        empresa.endereco.numero = ler("Numero: ")
+        empresa.endereco.complemento = ler("Complemento (opcional): ")
+        empresa.endereco.bairro = ler("Bairro: ")
+        empresa.endereco.cidade = ler("Cidade: ")
+        empresa.endereco.estado = ler("Estado (UF): ")
+        empresa.endereco.pais = ler("Pais: ")
 
         try {
             service.cadastrar(e)
@@ -98,24 +98,43 @@ class MenuEmpresa {
     private void atualizar() {
         int id = lerInt("ID da empresa a atualizar: ")
         try {
-            Empresa e = service.buscarPorId(id)
+            Empresa empresa = service.buscarPorId(id)
             println "Deixe em branco para manter o valor atual."
 
-            String nome  = ler("Nome [${e.nome}]: ")
-            if (nome)  e.nome = nome
-            String email = ler("Email [${e.email}]: ")
-            if (email) e.email = email
-            String cnpj  = ler("CNPJ [${e.cnpj}]: ")
-            if (cnpj)  e.cnpj = cnpj
-            String desc  = ler("Descricao [${e.descricao ?: ''}]: ")
-            if (desc)  e.descricao = desc
+            String nome  = ler("Nome [${empresa.nome}]: ")
+            if (nome){
+                empresa.nome = nome
+            }
 
-            String logr  = ler("Logradouro [${e.endereco.logradouro ?: ''}]: ")
-            if (logr)  e.endereco.logradouro = logr
+            String email = ler("Email [${empresa.email}]: ")
+            if (email){
+                empresa.email = email
+            }
+
+            String cnpj  = ler("CNPJ [${empresa.cnpj}]: ")
+            if (cnpj){
+                empresa.cnpj = cnpj
+            }
+
+            String desc  = ler("Descricao [${empresa.descricao ?: ''}]: ")
+            if (desc){
+                empresa.descricao = desc
+            }
+
+            String logr  = ler("Logradouro [${empresa.endereco.logradouro ?: ''}]: ")
+            if (logr) {
+                empresa.endereco.logradouro = logr
+            }
+
             String cidade = ler("Cidade [${e.endereco.cidade ?: ''}]: ")
-            if (cidade) e.endereco.cidade = cidade
-            String est   = ler("Estado [${e.endereco.estado ?: ''}]: ")
-            if (est)   e.endereco.estado = est
+            if (cidade){
+                empresa.endereco.cidade = cidade
+            }
+
+            String est = ler("Estado [${e.endereco.estado ?: ''}]: ")
+            if (est){
+                empresa.endereco.estado = est
+            }
 
             service.atualizar(e)
             println "Empresa atualizada."
@@ -134,22 +153,21 @@ class MenuEmpresa {
     private void publicarVaga() {
         println "\n--- Nova Vaga ---"
         int empresaId = lerInt("ID da empresa anunciante: ")
-        Vaga v = new Vaga()
-        v.empresaId = empresaId
-        v.titulo    = ler("Titulo da vaga: ")
-        v.descricao = ler("Descricao: ")
-        v.status    = ler("Status (Aberta/Fechada/Pausada) [Aberta]: ")
-        if (!v.status) v.status = 'Aberta'
+        Vaga vaga = new Vaga()
+        vaga.empresaId = empresaId
+        vaga.titulo = ler("Titulo da vaga: ")
+        vaga.descricao = ler("Descricao: ")
+        vaga.status = ler("Status (Aberta/Fechada/Pausada) [Aberta]: ")
+        if (!vaga.status) vaga.status = 'Aberta'
 
-        // BUG CORRIGIDO: vaga usa endereco_id, nao salario ou local texto
-        v.endereco = new Endereco()
-        v.endereco.cep        = ler("CEP da vaga (somente numeros): ")
-        v.endereco.logradouro = ler("Logradouro: ")
-        v.endereco.numero     = ler("Numero: ")
-        v.endereco.bairro     = ler("Bairro: ")
-        v.endereco.cidade     = ler("Cidade: ")
-        v.endereco.estado     = ler("Estado (UF): ")
-        v.endereco.pais       = ler("Pais: ")
+        vaga.endereco = new Endereco()
+        vaga.endereco.cep = ler("CEP da vaga (somente numeros): ")
+        vaga.endereco.logradouro = ler("Logradouro: ")
+        vaga.endereco.numero = ler("Numero: ")
+        vaga.endereco.bairro = ler("Bairro: ")
+        vaga.endereco.cidade = ler("Cidade: ")
+        vaga.endereco.estado = ler("Estado (UF): ")
+        vaga.endereco.pais = ler("Pais: ")
 
         print "Competencias necessarias (separadas por virgula): "
         String comps = scanner.nextLine().trim()
@@ -175,14 +193,14 @@ class MenuEmpresa {
     }
 
     private void atualizarVaga() {
-        int id        = lerInt("ID da vaga: ")
+        int id = lerInt("ID da vaga: ")
         int empresaId = lerInt("ID da empresa (validacao): ")
-        Vaga v = new Vaga(id: id, empresaId: empresaId)
-        v.titulo    = ler("Novo titulo: ")
-        v.descricao = ler("Nova descricao: ")
-        v.status    = ler("Status (Aberta/Fechada/Pausada): ")
+        Vaga vaga = new Vaga(id: id, empresaId: empresaId)
+        vaga.titulo = ler("Novo titulo: ")
+        vaga.descricao = ler("Nova descricao: ")
+        vaga.status = ler("Status (Aberta/Fechada/Pausada): ")
         try {
-            service.atualizarVaga(v)
+            service.atualizarVaga(vaga)
             println "Vaga atualizada."
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
@@ -206,7 +224,7 @@ class MenuEmpresa {
     }
 
     private void curtirCandidato() {
-        int vagaId      = lerInt("ID da vaga: ")
+        int vagaId = lerInt("ID da vaga: ")
         int candidatoId = lerInt("ID do candidato: ")
         try {
             service.curtirCandidato(vagaId, candidatoId)

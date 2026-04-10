@@ -17,9 +17,9 @@ class ConexaoBD {
 
         props.load(stream)
 
-        String url     = props.getProperty('url')
+        String url = props.getProperty('url')
         String usuario = props.getProperty('usuario')
-        String senha   = props.getProperty('senha')
+        String senha = props.getProperty('senha')
 
         try {
             Class.forName('org.postgresql.Driver')

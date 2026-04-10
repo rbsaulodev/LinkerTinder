@@ -17,9 +17,9 @@ class CompetenciaService {
     }
 
     Competencia buscarPorId(int id) {
-        Competencia c = competenciaDAO.buscarPorId(id)
-        if (!c) throw new RuntimeException("Competencia #${id} nao encontrada.")
-        return c
+        Competencia competencia = competenciaDAO.buscarPorId(id)
+        if (!competencia) throw new RuntimeException("Competencia #${id} nao encontrada.")
+        return competencia
     }
 
     boolean atualizar(int id, String novoNome) {

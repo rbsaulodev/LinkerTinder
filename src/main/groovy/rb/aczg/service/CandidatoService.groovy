@@ -67,9 +67,9 @@ class CandidatoService {
     }
 
     private void validar(Candidato c) {
-        if (!c.nome?.trim())      throw new IllegalArgumentException("Nome e obrigatorio.")
+        if (!c.nome?.trim()) throw new IllegalArgumentException("Nome e obrigatorio.")
         if (!c.sobrenome?.trim()) throw new IllegalArgumentException("Sobrenome e obrigatorio.")
-        if (!c.email?.trim())     throw new IllegalArgumentException("Email e obrigatorio.")
-        if (!c.cpf?.trim())       throw new IllegalArgumentException("CPF e obrigatorio.")
+        if (!c.email?.trim()) throw new IllegalArgumentException("Email e obrigatorio.")
+        if (!c.cpf?.trim()) throw new IllegalArgumentException("CPF e obrigatorio.")
     }
 }

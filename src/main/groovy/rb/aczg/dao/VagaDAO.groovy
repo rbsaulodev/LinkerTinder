@@ -276,12 +276,12 @@ class VagaDAO {
 
     private Match mapearMatch(ResultSet rs) {
         new Match(id: rs.getInt('id'),
-                candidatoId:   rs.getInt('candidato_id'),
+                candidatoId: rs.getInt('candidato_id'),
                 nomeCanditado: rs.getString('nome_candidato'),
-                vagaId:        rs.getInt('vaga_id'),
-                tituloVaga:    rs.getString('titulo_vaga'),
-                nomeEmpresa:   rs.getString('nome_empresa'),
-                matchedEm:     rs.getTimestamp('matched_em').toLocalDateTime()
+                vagaId: rs.getInt('vaga_id'),
+                tituloVaga: rs.getString('titulo_vaga'),
+                nomeEmpresa: rs.getString('nome_empresa'),
+                matchedEm: rs.getTimestamp('matched_em').toLocalDateTime()
         )
     }
 }

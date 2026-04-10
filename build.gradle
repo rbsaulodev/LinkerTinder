@@ -26,12 +26,16 @@ dependencies {
 }
 
 application {
-    mainClass = 'rb.aczg.ui.MenuPrincipal'
+    mainClass = 'rb.aczg.view.MenuPrincipal'
+}
+
+run{
+   standardInput = System.in
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'rb.aczg.ui.MenuPrincipal'
+        attributes 'Main-Class': 'rb.aczg.view.MenuPrincipal'
     }
     from {
         configurations.runtimeClasspath.collect {
@@ -41,6 +45,3 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}

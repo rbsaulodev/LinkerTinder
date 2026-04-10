@@ -101,15 +101,15 @@ class EnderecoDAO {
 
     private Endereco mapear(ResultSet rs) {
         new Endereco(
-                id:          rs.getInt('id'),
-                cep:         rs.getString('cep'),
+                id: rs.getInt('id'),
+                cep: rs.getString('cep'),
                 logradouro:  rs.getString('logradouro'),
-                numero:      rs.getString('numero'),
+                numero: rs.getString('numero'),
                 complemento: rs.getString('complemento'),
-                bairro:      rs.getString('bairro'),
-                cidade:      rs.getString('cidade'),
-                estado:      rs.getString('estado'),
-                pais:        rs.getString('pais')
+                bairro: rs.getString('bairro'),
+                cidade: rs.getString('cidade'),
+                estado: rs.getString('estado'),
+                pais: rs.getString('pais')
         )
     }
 }
