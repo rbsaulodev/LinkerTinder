@@ -5,31 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="022eed36-60e0-43d6-b9fe-1983ed05091a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/ICandidatoDAO.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/ICompetenciaDAO.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/IConexao.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/IEmpresaDAO.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/IEnderecoDAO.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/IVagaDAO.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/CompetenciaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/CompetenciaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato$_cadastrar_closure1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato$_cadastrar_closure1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato$_listarTodos_closure2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato$_listarTodos_closure2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato$_verMatches_closure3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato$_verMatches_closure3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuCandidato.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_listarVagas_closure3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_listarVagas_closure3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_publicarVaga_closure2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_publicarVaga_closure2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verCandidatosCompat_closure4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verCandidatosCompat_closure4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verMatchesEmpresa_closure5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verMatchesEmpresa_closure5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/CandidatoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/CandidatoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/CompetenciaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/CompetenciaDAO.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/EmpresaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/EmpresaDAO.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/EnderecoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/EnderecoDAO.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/VagaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/VagaDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuCandidato.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuCandidato.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,17 +105,32 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/rb-linux/git/LinkerTinder",
+    "last_opened_file_path": "/home/rb-linux/git/LinkerTinder/src/main/groovy/rb/aczg/service/validation",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/validation" />
+      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
@@ -209,7 +214,28 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771527665958</updated>
+      <workItem from="1776278462998" duration="104000" />
+      <workItem from="1776278576059" duration="900000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy</url>
+          <line>2</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/VagaDAO.groovy</url>
+          <line>2</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

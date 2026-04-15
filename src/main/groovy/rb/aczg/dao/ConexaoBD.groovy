@@ -1,13 +1,16 @@
 package rb.aczg.dao
 
+import rb.aczg.interfaces.IConexao
+
 import java.sql.Connection
 import java.sql.DriverManager
 
-class ConexaoBD {
+class ConexaoBD implements IConexao {
 
     private static final String PROPERTIES_FILE = '/database.properties'
 
-    static Connection obterConexao() {
+    @Override
+    Connection obterConexao() {
         Properties props = new Properties()
         InputStream stream = ConexaoBD.class.getResourceAsStream(PROPERTIES_FILE)
 
@@ -17,13 +20,13 @@ class ConexaoBD {
 
         props.load(stream)
 
-        String url = props.getProperty('url')
-        String usuario = props.getProperty('usuario')
-        String senha = props.getProperty('senha')
-
         try {
             Class.forName('org.postgresql.Driver')
-            return DriverManager.getConnection(url, usuario, senha)
+            return DriverManager.getConnection(
+                    props.getProperty('url'),
+                    props.getProperty('usuario'),
+                    props.getProperty('senha')
+            )
         } catch (Exception e) {
             throw new RuntimeException("Falha ao conectar ao banco: ${e.message}", e)
         }

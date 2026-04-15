@@ -1,22 +1,38 @@
 package rb.aczg.service
 
-import rb.aczg.dao.CandidatoDAO
-import rb.aczg.dao.CompetenciaDAO
-import rb.aczg.dao.EnderecoDAO
-import rb.aczg.dao.VagaDAO
+import rb.aczg.interfaces.ICandidatoDAO
+import rb.aczg.interfaces.ICompetenciaDAO
+import rb.aczg.interfaces.IEnderecoDAO
+import rb.aczg.interfaces.IVagaDAO
 import rb.aczg.model.Candidato
 import rb.aczg.model.Competencia
 import rb.aczg.model.Vaga
+import rb.aczg.service.validation.CandidatoValidator
 
-class CandidatoService {
 
-    private final CandidatoDAO candidatoDAO = new CandidatoDAO()
-    private final EnderecoDAO enderecoDAO = new EnderecoDAO()
-    private final CompetenciaDAO competenciaDAO = new CompetenciaDAO()
-    private final VagaDAO vagaDAO = new VagaDAO()
+class CandidatoService{
+
+    private final ICandidatoDAO    candidatoDAO
+    private final IEnderecoDAO     enderecoDAO
+    private final ICompetenciaDAO  competenciaDAO
+    private final IVagaDAO         vagaDAO
+    private final CandidatoValidator validator
+
+    CandidatoService(
+            ICandidatoDAO candidatoDAO,
+            IEnderecoDAO enderecoDAO,
+            ICompetenciaDAO competenciaDAO,
+            IVagaDAO vagaDAO,
+            CandidatoValidator validator) {
+        this.candidatoDAO = candidatoDAO
+        this.enderecoDAO = enderecoDAO
+        this.competenciaDAO = competenciaDAO
+        this.vagaDAO = vagaDAO
+        this.validator = validator
+    }
 
     Candidato cadastrar(Candidato candidato) {
-        validar(candidato)
+        validator.validar(candidato)
         if (candidato.endereco) {
             candidato.endereco = enderecoDAO.inserir(candidato.endereco)
         }
@@ -34,7 +50,7 @@ class CandidatoService {
     }
 
     Candidato atualizar(Candidato candidato) {
-        validar(candidato)
+        validator.validar(candidato)
         if (candidato.endereco?.id) {
             enderecoDAO.atualizar(candidato.endereco)
         }
@@ -64,12 +80,5 @@ class CandidatoService {
     void curtirVaga(int candidatoId, int vagaId) {
         candidatoDAO.curtirVaga(candidatoId, vagaId)
         vagaDAO.gerarMatchSeAmbosCurtiram(candidatoId, vagaId)
-    }
-
-    private void validar(Candidato c) {
-        if (!c.nome?.trim()) throw new IllegalArgumentException("Nome e obrigatorio.")
-        if (!c.sobrenome?.trim()) throw new IllegalArgumentException("Sobrenome e obrigatorio.")
-        if (!c.email?.trim()) throw new IllegalArgumentException("Email e obrigatorio.")
-        if (!c.cpf?.trim()) throw new IllegalArgumentException("CPF e obrigatorio.")
     }
 }

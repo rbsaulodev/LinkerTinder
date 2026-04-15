@@ -1,17 +1,43 @@
 package rb.aczg.service
 
-import rb.aczg.dao.*
-import rb.aczg.model.*
+import rb.aczg.interfaces.ICandidatoDAO
+import rb.aczg.interfaces.ICompetenciaDAO
+import rb.aczg.interfaces.IEnderecoDAO
+import rb.aczg.interfaces.IEmpresaDAO
+import rb.aczg.interfaces.IVagaDAO
+import rb.aczg.model.Candidato
+import rb.aczg.model.Competencia
+import rb.aczg.model.Empresa
+import rb.aczg.model.Match
+import rb.aczg.model.Vaga
+import rb.aczg.service.validation.EmpresaValidator
 
-class EmpresaService {
+class EmpresaService{
 
-    private final EmpresaDAO empresaDAO = new EmpresaDAO()
-    private final EnderecoDAO enderecoDAO = new EnderecoDAO()
-    private final VagaDAO vagaDAO = new VagaDAO()
-    private final CompetenciaDAO competenciaDAO = new CompetenciaDAO()
+    private final IEmpresaDAO empresaDAO
+    private final IEnderecoDAO enderecoDAO
+    private final IVagaDAO vagaDAO
+    private final ICompetenciaDAO competenciaDAO
+    private final ICandidatoDAO candidatoDAO
+    private final EmpresaValidator validator
+
+    EmpresaService(
+            IEmpresaDAO empresaDAO,
+            IEnderecoDAO enderecoDAO,
+            IVagaDAO vagaDAO,
+            ICompetenciaDAO competenciaDAO,
+            ICandidatoDAO candidatoDAO,
+            EmpresaValidator validator) {
+        this.empresaDAO = empresaDAO
+        this.enderecoDAO = enderecoDAO
+        this.vagaDAO = vagaDAO
+        this.competenciaDAO = competenciaDAO
+        this.candidatoDAO = candidatoDAO
+        this.validator = validator
+    }
 
     Empresa cadastrar(Empresa empresa) {
-        validar(empresa)
+        validator.validar(empresa)
         if (empresa.endereco) {
             empresa.endereco = enderecoDAO.inserir(empresa.endereco)
         }
@@ -29,7 +55,7 @@ class EmpresaService {
     }
 
     Empresa atualizar(Empresa empresa) {
-        validar(empresa)
+        validator.validar(empresa)
         if (empresa.endereco?.id) {
             enderecoDAO.atualizar(empresa.endereco)
         }
@@ -74,21 +100,13 @@ class EmpresaService {
     }
 
     List<Candidato> verMatchesDeCandidatos(int vagaId) {
-        return new CandidatoDAO().matchPorVaga(vagaId)
+        return candidatoDAO.matchPorVaga(vagaId)
     }
 
     List<Match> verMatchesDaEmpresa(int empresaId) {
         List<Vaga> vagas = vagaDAO.listarPorEmpresa(empresaId)
         List<Match> matches = []
-        vagas.each { vaga ->
-            matches.addAll(vagaDAO.listarMatchesPorVaga(vaga.id))
-        }
+        vagas.each { vaga -> matches.addAll(vagaDAO.listarMatchesPorVaga(vaga.id)) }
         return matches
-    }
-
-    private void validar(Empresa e) {
-        if (!e.nome?.trim())  throw new IllegalArgumentException("Nome e obrigatorio.")
-        if (!e.email?.trim()) throw new IllegalArgumentException("Email e obrigatorio.")
-        if (!e.cnpj?.trim())  throw new IllegalArgumentException("CNPJ e obrigatorio.")
     }
 }
