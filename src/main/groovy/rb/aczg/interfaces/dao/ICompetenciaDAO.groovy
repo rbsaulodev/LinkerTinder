@@ -1,4 +1,4 @@
-package rb.aczg.interfaces
+package rb.aczg.interfaces.dao
 
 import rb.aczg.model.Competencia
 
@@ -14,4 +14,5 @@ interface ICompetenciaDAO {
     void vincularCandidato(int candidatoId, int competenciaId, String nivel)
     void vincularVaga(int vagaId, int competenciaId, boolean obrigatorio)
     void desvincularCandidato(int candidatoId, int competenciaId)
+    void desvincularVaga(int vagaId, int competenciaId)
 }

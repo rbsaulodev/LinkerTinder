@@ -1,6 +1,6 @@
 package rb.aczg.dao
 
-import rb.aczg.interfaces.IConexao
+import rb.aczg.interfaces.dao.IConexao
 
 import java.sql.Connection
 import java.sql.DriverManager

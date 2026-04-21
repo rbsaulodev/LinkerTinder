@@ -1,7 +1,7 @@
 package rb.aczg.dao
 
-import rb.aczg.interfaces.ICompetenciaDAO
-import rb.aczg.interfaces.IConexao
+import rb.aczg.interfaces.dao.ICompetenciaDAO
+import rb.aczg.interfaces.dao.IConexao
 import rb.aczg.model.Competencia
 
 import java.sql.*
@@ -175,7 +175,7 @@ class CompetenciaDAO implements ICompetenciaDAO {
         } finally { con.close() }
     }
 
-    @Override
+
     void desvincularVaga(int vagaId, int competenciaId) {
         Connection con = conexao.obterConexao()
         try {

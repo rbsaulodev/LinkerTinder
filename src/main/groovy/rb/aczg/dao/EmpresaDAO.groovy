@@ -1,8 +1,8 @@
-package rb.aczg.dao.impl
+package rb.aczg.dao
 
-import rb.aczg.interfaces.IConexao
-import rb.aczg.interfaces.IEmpresaDAO
-import rb.aczg.interfaces.IVagaDAO
+import rb.aczg.interfaces.dao.IConexao
+import rb.aczg.interfaces.dao.IEmpresaDAO
+import rb.aczg.interfaces.dao.IVagaDAO
 import rb.aczg.model.Empresa
 import rb.aczg.model.Endereco
 

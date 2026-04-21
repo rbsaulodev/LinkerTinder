@@ -1,8 +1,8 @@
 package rb.aczg.dao
 
-import rb.aczg.interfaces.ICandidatoDAO
-import rb.aczg.interfaces.ICompetenciaDAO
-import rb.aczg.interfaces.IConexao
+import rb.aczg.interfaces.dao.ICandidatoDAO
+import rb.aczg.interfaces.dao.ICompetenciaDAO
+import rb.aczg.interfaces.dao.IConexao
 import rb.aczg.model.Candidato
 import rb.aczg.model.Endereco
 

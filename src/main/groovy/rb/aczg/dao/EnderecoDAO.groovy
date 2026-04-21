@@ -1,7 +1,7 @@
-package rb.aczg.dao.impl
+package rb.aczg.dao
 
-import rb.aczg.interfaces.IConexao
-import rb.aczg.interfaces.IEnderecoDAO
+import rb.aczg.interfaces.dao.IConexao
+import rb.aczg.interfaces.dao.IEnderecoDAO
 import rb.aczg.model.Endereco
 
 import java.sql.*

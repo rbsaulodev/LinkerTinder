@@ -3,17 +3,19 @@ package rb.aczg.view
 import rb.aczg.model.Candidato
 import rb.aczg.model.Endereco
 import rb.aczg.model.Vaga
-import rb.aczg.service.CandidatoService
+import rb.aczg.interfaces.service.ICandidatoService
 
 import java.time.LocalDate
 
+
 class MenuCandidato {
 
-    private final CandidatoService service = new CandidatoService()
+    private final ICandidatoService service
     private final Scanner scanner
 
-    MenuCandidato(Scanner scanner) {
+    MenuCandidato(Scanner scanner, ICandidatoService service) {
         this.scanner = scanner
+        this.service = service
     }
 
     void exibir() {
@@ -22,21 +24,18 @@ class MenuCandidato {
             println ""
             println "--- MENU CANDIDATOS ---"
             println "1.  Cadastrar candidato"
-            println "2.  Listar todos os candidatos"
-            println "3.  Buscar candidato por ID"
+            println "2.  Listar todos"
+            println "3.  Buscar por ID"
             println "4.  Atualizar candidato"
             println "5.  Remover candidato"
-            println "--- COMPETENCIAS ---"
             println "6.  Adicionar competencia"
             println "7.  Remover competencia"
-            println "--- INTERACOES ---"
-            println "8.  Ver vagas compativeis (match por competencias)"
-            println "9.  Curtir uma vaga"
+            println "8.  Ver vagas compativeis (match)"
+            println "9.  Curtir vaga"
             println "0.  Voltar"
             print "Opcao: "
 
-            String opcao = scanner.nextLine().trim()
-            switch (opcao) {
+            switch (scanner.nextLine().trim()) {
                 case '1': cadastrar();     break
                 case '2': listarTodos();   break
                 case '3': buscarPorId();   break
@@ -54,31 +53,23 @@ class MenuCandidato {
 
     private void cadastrar() {
         println "\n--- Novo Candidato ---"
-        Candidato candidato = new Candidato()
-        candidato.nome = ler("Nome: ")
-        candidato.sobrenome = ler("Sobrenome: ")
-        candidato.email = ler("Email: ")
-        candidato.cpf = ler("CPF (somente numeros): ")
+        Candidato c = new Candidato()
+        c.nome = ler("Nome: ")
+        c.sobrenome  ler("Sobrenome: ")
+        c.email = ler("Email: ")
+        c.cpf = ler("CPF (somente numeros): ")
+        c.dataNasc = lerData("Data de nascimento (AAAA-MM-DD): ")
+        c.descricao = ler("Descricao (opcional): ")
 
-        String nasc = ler("Data de nascimento (AAAA-MM-DD): ")
-        try {
-            candidato.dataNasc = LocalDate.parse(nasc)
-        } catch (Exception e) {
-            println "Data invalida. Usando data padrao 2000-01-01."
-            candidato.dataNasc = LocalDate.of(2000, 1, 1)
-        }
-
-        candidato.descricao = ler("Descricao (opcional): ")
-
-        candidato.endereco = new Endereco()
-        candidato.endereco.cep = ler("CEP (somente numeros): ")
-        candidato.endereco.logradouro = ler("Logradouro/Rua: ")
-        candidato.endereco.numero = ler("Numero: ")
-        candidato.endereco.complemento = ler("Complemento (opcional): ")
-        candidato.endereco.bairro = ler("Bairro: ")
-        candidato.endereco.cidade = ler("Cidade: ")
-        candidato.endereco.estado = ler("Estado (UF): ")
-        candidato.endereco.pais = ler("Pais: ")
+        c.endereco = new Endereco()
+        c.endereco.cep = ler("CEP: ")
+        c.endereco.logradouro   = ler("Logradouro: ")
+        c.endereco.numero = ler("Numero: ")
+        c.endereco.complemento  = ler("Complemento (opcional): ")
+        c.endereco.bairro = ler("Bairro: ")
+        c.endereco.cidade = ler("Cidade: ")
+        c.endereco.estado = ler("Estado (UF): ")
+        c.endereco.pais = ler("Pais: ")
 
         print "Competencias (separadas por virgula, ou ENTER para pular): "
         String comps = scanner.nextLine().trim()
@@ -87,134 +78,95 @@ class MenuCandidato {
             Candidato inserido = service.cadastrar(c)
             if (comps) {
                 comps.split(',').each { nome ->
-                    if (nome.trim()) service.adicionarCompetencia(inserido.id, nome.trim())
+                    if (nome.trim()) service.adicionarCompetencia(inserido.id, nome.trim(), null)
                 }
             }
-            println "Candidato cadastrado com sucesso! ID: ${inserido.id}"
-        } catch (Exception e) {
-            println "Erro: ${e.message}"
-        }
+            println "Candidato cadastrado! ID: ${inserido.id}"
+        } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void listarTodos() {
         List<Candidato> lista = service.listarTodos()
         if (lista.isEmpty()) { println "\nNenhum candidato cadastrado."; return }
-        println "\n--- Lista de Candidatos ---"
+        println "\n--- Candidatos ---"
         lista.each { println it }
     }
 
     private void buscarPorId() {
-        int id = lerInt("ID do candidato: ")
-        try { println service.buscarPorId(id) }
+        try { println service.buscarPorId(lerInt("ID: ")) }
         catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void atualizar() {
-        int id = lerInt("ID do candidato a atualizar: ")
+        int id = lerInt("ID do candidato: ")
         try {
-            Candidato candidato = service.buscarPorId(id)
-            println "Deixe em branco para manter o valor atual."
-
-            String nome = ler("Nome [${candidato.nome}]: ")
-            if (nome){
-                candidato.nome = nome
-            }
-
-            String sob = ler("Sobrenome [${candidato.sobrenome}]: ")
-            if (sob){
-                candidato.sobrenome = sob
-            }
-
-            String email = ler("Email [${candidato.email}]: ")
-            if (email) {
-                candidato.email = email
-            }
-
-            String desc = ler("Descricao [${candidato.descricao ?: ''}]: ")
-            if (desc){
-                candidato.descricao = desc
-            }
-
-            println "--- Endereco (deixe em branco para manter) ---"
-            String logr = ler("Logradouro [${candidato.endereco.logradouro ?: ''}]: ")
-            if (logr) {
-                candidato.endereco.logradouro = logr
-            }
-
-            String cidade = ler("Cidade [${candidato.endereco.cidade ?: ''}]: ")
-            if (cidade){
-                candidato.endereco.cidade = cidade
-            }
-
-            String est = ler("Estado [${candidato.endereco.estado ?: ''}]: ")
-            if (est) {
-                candidato.endereco.estado = est
-            }
-
+            Candidato c = service.buscarPorId(id)
+            println "Deixe em branco para manter."
+            String nome = ler("Nome [${c.nome}]: "); if (nome) c.nome = nome
+            String sob  = ler("Sobrenome [${c.sobrenome}]: "); if (sob) c.sobrenome = sob
+            String email = ler("Email [${c.email}]: "); if (email) c.email = email
+            String desc = ler("Descricao [${c.descricao ?: ''}]: "); if (desc) c.descricao = desc
+            String cidade = ler("Cidade [${c.endereco.cidade ?: ''}]: "); if (cidade) c.endereco.cidade = cidade
+            String est = ler("Estado [${c.endereco.estado ?: ''}]: "); if (est) c.endereco.estado = est
             service.atualizar(c)
             println "Candidato atualizado."
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void remover() {
-        int id = lerInt("ID do candidato a remover: ")
-        print "Confirmar remocao? (s/N): "
+        int id = lerInt("ID: ")
+        print "Confirmar? (s/N): "
         if (scanner.nextLine().trim().equalsIgnoreCase('s')) {
-            service.remover(id)
-            println "Candidato removido."
-        } else { println "Operacao cancelada." }
+            service.remover(id); println "Removido."
+        } else { println "Cancelado." }
     }
 
     private void adicionarComp() {
-        int id = lerInt("ID do candidato: ")
-        String nome = ler("Nome da competencia: ")
-        String nivel = ler("Nivel (Basico/Intermediario/Avancado, ou ENTER para pular): ")
-        try {
-            service.adicionarCompetencia(id, nome, nivel ?: null)
-            println "Competencia adicionada."
-        } catch (Exception e) { println "Erro: ${e.message}" }
+        int id       = lerInt("ID do candidato: ")
+        String nome  = ler("Competencia: ")
+        String nivel = ler("Nivel (Basico/Intermediario/Avancado ou ENTER): ")
+        try { service.adicionarCompetencia(id, nome, nivel ?: null); println "Adicionada." }
+        catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void removerComp() {
-        int candId = lerInt("ID do candidato: ")
-        int compId = lerInt("ID da competencia: ")
         try {
-            service.removerCompetencia(candId, compId)
-            println "Competencia removida."
+            service.removerCompetencia(lerInt("ID do candidato: "), lerInt("ID da competencia: "))
+            println "Removida."
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void verMatches() {
-        int id = lerInt("ID do candidato: ")
         try {
-            List<Vaga> vagas = service.verMatchesDeVagas(id)
-            if (vagas.isEmpty()) { println "\nNenhuma vaga compativel encontrada." }
-            else {
-                println "\n--- Vagas Compativeis por Competencia ---"
-                vagas.each { println it }
-            }
+            List<Vaga> vagas = service.verMatchesDeVagas(lerInt("ID do candidato: "))
+            if (vagas.isEmpty()) println "\nNenhuma vaga compativel."
+            else { println "\n--- Vagas Compativeis ---"; vagas.each { println it } }
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void curtirVaga() {
-        int candidatoId = lerInt("ID do candidato: ")
-        int vagaId      = lerInt("ID da vaga: ")
         try {
-            service.curtirVaga(candidatoId, vagaId)
+            service.curtirVaga(lerInt("ID do candidato: "), lerInt("ID da vaga: "))
             println "Curtida registrada!"
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
-    private String ler(String label) {
-        print label
-        return scanner.nextLine().trim()
-    }
+    private String ler(String label) { print label; scanner.nextLine().trim() }
 
     private int lerInt(String label) {
         while (true) {
             print label
             try { return scanner.nextLine().trim().toInteger() }
             catch (NumberFormatException ignored) { println "Digite um numero valido." }
+        }
+    }
+
+    private LocalDate lerData(String label) {
+        print label
+        try { return LocalDate.parse(scanner.nextLine().trim()) }
+        catch (Exception ignored) {
+            println "Data invalida. Usando 2000-01-01."
+            return LocalDate.of(2000, 1, 1)
         }
     }
 }

@@ -1,4 +1,4 @@
-package rb.aczg.interfaces
+package rb.aczg.interfaces.dao
 
 import rb.aczg.model.Endereco
 
