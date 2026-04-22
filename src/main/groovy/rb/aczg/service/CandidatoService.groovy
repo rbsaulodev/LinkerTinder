@@ -4,6 +4,7 @@ import rb.aczg.interfaces.dao.ICandidatoDAO
 import rb.aczg.interfaces.dao.ICompetenciaDAO
 import rb.aczg.interfaces.dao.IEnderecoDAO
 import rb.aczg.interfaces.dao.IVagaDAO
+import rb.aczg.interfaces.observer.MatchObserver
 import rb.aczg.interfaces.service.ICandidatoService
 import rb.aczg.model.Candidato
 import rb.aczg.model.Competencia
@@ -13,31 +14,38 @@ import rb.aczg.service.validation.CandidatoValidator
 
 class CandidatoService implements ICandidatoService {
 
+    private static final String CANDIDATO_NAO_ENCONTRADO = 'Candidato #%d nao encontrado.'
+
     private final ICandidatoDAO candidatoDAO
     private final IEnderecoDAO enderecoDAO
     private final ICompetenciaDAO competenciaDAO
     private final IVagaDAO vagaDAO
     private final CandidatoValidator validator
+    private final List<MatchObserver> observers
 
     CandidatoService(
             ICandidatoDAO candidatoDAO,
             IEnderecoDAO enderecoDAO,
             ICompetenciaDAO competenciaDAO,
             IVagaDAO vagaDAO,
-            CandidatoValidator validator) {
-        this.candidatoDAO  = candidatoDAO
-        this.enderecoDAO   = enderecoDAO
+            CandidatoValidator validator,
+            List<MatchObserver> observers = []) {
+        this.candidatoDAO = candidatoDAO
+        this.enderecoDAO = enderecoDAO
         this.competenciaDAO = competenciaDAO
-        this.vagaDAO        = vagaDAO
-        this.validator      = validator
+        this.vagaDAO = vagaDAO
+        this.validator = validator
+        this.observers = new ArrayList<>(observers)
+    }
+
+    void registrarObserver(MatchObserver observer) {
+        observers << observer
     }
 
     @Override
     Candidato cadastrar(Candidato candidato) {
         validator.validar(candidato)
-        if (candidato.endereco) {
-            candidato.endereco = enderecoDAO.inserir(candidato.endereco)
-        }
+        salvarEnderecoSePresente(candidato)
         return candidatoDAO.inserir(candidato)
     }
 
@@ -48,17 +56,15 @@ class CandidatoService implements ICandidatoService {
 
     @Override
     Candidato buscarPorId(int id) {
-        Candidato c = candidatoDAO.buscarPorId(id)
-        if (!c) throw new RuntimeException("Candidato #${id} nao encontrado.")
-        return c
+        Candidato candidato = candidatoDAO.buscarPorId(id)
+        if (!candidato) throw new RuntimeException(String.format(CANDIDATO_NAO_ENCONTRADO, id))
+        return candidato
     }
 
     @Override
     Candidato atualizar(Candidato candidato) {
         validator.validar(candidato)
-        if (candidato.endereco?.id) {
-            enderecoDAO.atualizar(candidato.endereco)
-        }
+        atualizarEnderecoSeExistente(candidato)
         candidatoDAO.atualizar(candidato)
         return candidato
     }
@@ -94,6 +100,23 @@ class CandidatoService implements ICandidatoService {
     @Override
     void curtirVaga(int candidatoId, int vagaId) {
         candidatoDAO.curtirVaga(candidatoId, vagaId)
-        vagaDAO.gerarMatchSeAmbosCurtiram(candidatoId, vagaId)
+        Match match = vagaDAO.gerarMatchSeAmbosCurtiram(candidatoId, vagaId)
+        if (match) notificarObservers(match)
+    }
+
+    private void salvarEnderecoSePresente(Candidato candidato) {
+        if (candidato.endereco) {
+            candidato.endereco = enderecoDAO.inserir(candidato.endereco)
+        }
+    }
+
+    private void atualizarEnderecoSeExistente(Candidato candidato) {
+        if (candidato.endereco?.id) {
+            enderecoDAO.atualizar(candidato.endereco)
+        }
+    }
+
+    private void notificarObservers(Match match) {
+        observers.each { it.onMatch(match) }
     }
 }

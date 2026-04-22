@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="022eed36-60e0-43d6-b9fe-1983ed05091a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/factory/IConnectionFactory.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="022eed36-60e0-43d6-b9fe-1983ed05091a" name="Changes" comment="feat: Adiciona pattern factory no Banco de Dados">
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/observer/LogMatchObserver.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/observer/NotificacaoMatchObserver.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/ICandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/ICandidatoService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/IEmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/IEmpresaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/EmpresaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuPrincipal.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuPrincipal.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,12 +73,12 @@
     &quot;assignee&quot;: &quot;rbsaulodev&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/rbsaulodev/LinkerTinder.git&quot;,
-    &quot;accountId&quot;: &quot;0a5fd87a-532f-4d50-aab9-2b523cb00180&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/rbsaulodev/LinkerTinder.git",
+    "accountId": "467c01fe-de3a-4703-a892-8d7d97608402"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -105,7 +113,7 @@
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/rb-linux/git/LinkerTinder/src/main/groovy/rb/aczg/interfaces/factory",
+    "last_opened_file_path": "/home/rb-linux/git/LinkerTinder/src/main/groovy/rb/aczg/dao/factory",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -121,10 +129,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/factory" />
+      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/service" />
+      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/observer" />
       <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service" />
-      <recent name="$PROJECT_DIR$/src/test/groovy" />
-      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/validation" />
-      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces" />
+      <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/oberserver" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -288,12 +297,25 @@
       <workItem from="1776794027986" duration="1735000" />
       <workItem from="1776799566503" duration="5000" />
       <workItem from="1776803527375" duration="3000" />
-      <workItem from="1776863103283" duration="449000" />
+      <workItem from="1776863103283" duration="2041000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: Adiciona pattern factory no Banco de Dados">
+      <option name="closed" value="true" />
+      <created>1776863577665</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1776863577665</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: Adiciona pattern factory no Banco de Dados" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Adiciona pattern factory no Banco de Dados" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

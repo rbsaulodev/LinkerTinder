@@ -1,18 +1,19 @@
 package rb.aczg.view
 
 import rb.aczg.dao.*
+import rb.aczg.dao.factory.PostgresConnectionFactory
 import rb.aczg.interfaces.dao.*
 import rb.aczg.interfaces.service.*
 import rb.aczg.service.*
+import rb.aczg.service.observer.*
 import rb.aczg.service.validation.*
-
 
 class MenuPrincipal {
 
     static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in)
 
-        IConexao conexao = new ConexaoBD()
+        ConexaoBD.configurar(new PostgresConnectionFactory())
+        IConexao conexao = ConexaoBD.instancia()
 
         IEnderecoDAO enderecoDAO = new EnderecoDAO(conexao)
         ICompetenciaDAO competenciaDAO = new CompetenciaDAO(conexao)
@@ -20,18 +21,19 @@ class MenuPrincipal {
         ICandidatoDAO candidatoDAO = new CandidatoDAO(conexao, competenciaDAO)
         IEmpresaDAO empresaDAO = new EmpresaDAO(conexao, vagaDAO)
 
-
-        ICandidatoService candidatoService = new CandidatoService(
-                candidatoDAO, enderecoDAO, competenciaDAO, vagaDAO, new CandidatoValidator())
-
-        IEmpresaService empresaService = new EmpresaService(
-                empresaDAO, enderecoDAO, vagaDAO, competenciaDAO, candidatoDAO, new EmpresaValidator())
+        def matchObservers = [new LogMatchObserver(), new NotificacaoMatchObserver()]
 
         ICompetenciaService competenciaService = new CompetenciaService(competenciaDAO)
+        IEmpresaService empresaService = new EmpresaService(empresaDAO, enderecoDAO, new EmpresaValidator())
+        IVagaService vagaService = new VagaService(vagaDAO, enderecoDAO, competenciaDAO, candidatoDAO, matchObservers)
 
+        ICandidatoService candidatoService = new CandidatoService(
+                candidatoDAO, enderecoDAO, competenciaDAO, vagaDAO,
+                new CandidatoValidator(), matchObservers)
 
-        MenuCandidato   menuCandidato   = new MenuCandidato(scanner, candidatoService)
-        MenuEmpresa     menuEmpresa     = new MenuEmpresa(scanner, empresaService)
+        Scanner scanner = new Scanner(System.in)
+        MenuCandidato menuCandidato = new MenuCandidato(scanner, candidatoService)
+        MenuEmpresa menuEmpresa = new MenuEmpresa(scanner, empresaService, vagaService)
         MenuCompetencia menuCompetencia = new MenuCompetencia(scanner, competenciaService)
 
         boolean sair = false
@@ -48,11 +50,8 @@ class MenuPrincipal {
                 case '1': menuCandidato.exibir();   break
                 case '2': menuEmpresa.exibir();     break
                 case '3': menuCompetencia.exibir(); break
-                case '0':
-                    println "Ate logo!"
-                    sair = true
-                    break
-                default: println "Opcao invalida."
+                case '0': println "Ate logo!"; sair = true; break
+                default:  println "Opcao invalida."
             }
         }
     }

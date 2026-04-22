@@ -6,6 +6,10 @@ import rb.aczg.model.Competencia
 
 class CompetenciaService implements ICompetenciaService {
 
+    private static final String NOME_OBRIGATORIO = 'Nome da competencia e obrigatorio.'
+    private static final String NOME_ATUALIZACAO_OBRIG  = 'Nome e obrigatorio.'
+    private static final String COMPETENCIA_NAO_ENCONTRADA = 'Competencia #%d nao encontrada.'
+
     private final ICompetenciaDAO competenciaDAO
 
     CompetenciaService(ICompetenciaDAO competenciaDAO) {
@@ -14,7 +18,7 @@ class CompetenciaService implements ICompetenciaService {
 
     @Override
     Competencia cadastrar(String nome) {
-        if (!nome?.trim()) throw new IllegalArgumentException("Nome da competencia e obrigatorio.")
+        validarNome(nome, NOME_OBRIGATORIO)
         return competenciaDAO.inserir(new Competencia(nome: nome.trim()))
     }
 
@@ -25,19 +29,23 @@ class CompetenciaService implements ICompetenciaService {
 
     @Override
     Competencia buscarPorId(int id) {
-        Competencia c = competenciaDAO.buscarPorId(id)
-        if (!c) throw new RuntimeException("Competencia #${id} nao encontrada.")
-        return c
+        Competencia competencia = competenciaDAO.buscarPorId(id)
+        if (!competencia) throw new RuntimeException(String.format(COMPETENCIA_NAO_ENCONTRADA, id))
+        return competencia
     }
 
     @Override
     boolean atualizar(int id, String novoNome) {
-        if (!novoNome?.trim()) throw new IllegalArgumentException("Nome e obrigatorio.")
+        validarNome(novoNome, NOME_ATUALIZACAO_OBRIG)
         return competenciaDAO.atualizar(new Competencia(id: id, nome: novoNome.trim()))
     }
 
     @Override
     boolean remover(int id) {
         return competenciaDAO.deletar(id)
+    }
+
+    private static void validarNome(String nome, String mensagemErro) {
+        if (!nome?.trim()) throw new IllegalArgumentException(mensagemErro)
     }
 }

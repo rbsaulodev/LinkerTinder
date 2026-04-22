@@ -6,15 +6,18 @@ import rb.aczg.model.Endereco
 import rb.aczg.model.Match
 import rb.aczg.model.Vaga
 import rb.aczg.interfaces.service.IEmpresaService
+import rb.aczg.interfaces.service.IVagaService
 
 class MenuEmpresa {
 
-    private final IEmpresaService service
-    private final Scanner scanner
+    private final IEmpresaService empresaService
+    private final IVagaService    vagaService
+    private final Scanner         scanner
 
-    MenuEmpresa(Scanner scanner, IEmpresaService service) {
-        this.scanner = scanner
-        this.service = service
+    MenuEmpresa(Scanner scanner, IEmpresaService empresaService, IVagaService vagaService) {
+        this.scanner        = scanner
+        this.empresaService = empresaService
+        this.vagaService    = vagaService
     }
 
     void exibir() {
@@ -38,19 +41,19 @@ class MenuEmpresa {
             print "Opcao: "
 
             switch (scanner.nextLine().trim()) {
-                case '1':  cadastrar();           break
-                case '2':  listarTodas();         break
-                case '3':  buscarPorId();         break
-                case '4':  atualizar();           break
-                case '5':  remover();             break
-                case '6':  publicarVaga();        break
-                case '7':  listarVagas();         break
-                case '8':  atualizarVaga();       break
-                case '9':  removerVaga();         break
+                case '1':  cadastrar(); break
+                case '2':  listarTodas(); break
+                case '3':  buscarPorId(); break
+                case '4':  atualizar(); break
+                case '5':  remover(); break
+                case '6':  publicarVaga(); break
+                case '7':  listarVagas(); break
+                case '8':  atualizarVaga(); break
+                case '9':  removerVaga(); break
                 case '10': verCandidatosCompat(); break
-                case '11': curtirCandidato();     break
-                case '12': verMatchesEmpresa();   break
-                case '0':  voltar = true;         break
+                case '11': curtirCandidato(); break
+                case '12': verMatchesEmpresa(); break
+                case '0':  voltar = true; break
                 default:   println "Opcao invalida."
             }
         }
@@ -63,44 +66,59 @@ class MenuEmpresa {
         e.email = ler("Email: ")
         e.cnpj = ler("CNPJ (somente numeros): ")
         e.descricao = ler("Descricao (opcional): ")
+        e.endereco = lerEndereco()
 
-        e.endereco = new Endereco()
-        e.endereco.cep = ler("CEP: ")
-        e.endereco.logradouro  = ler("Logradouro: ")
-        e.endereco.numero = ler("Numero: ")
-        e.endereco.complemento = ler("Complemento (opcional): ")
-        e.endereco.bairro = ler("Bairro: ")
-        e.endereco.cidade = ler("Cidade: ")
-        e.endereco.estado = ler("Estado (UF): ")
-        e.endereco.pais = ler("Pais: ")
-
-        try { service.cadastrar(e); println "Empresa cadastrada!" }
+        try { empresaService.cadastrar(e); println "Empresa cadastrada!" }
         catch (Exception ex) { println "Erro: ${ex.message}" }
     }
 
     private void listarTodas() {
-        List<Empresa> lista = service.listarTodas()
+        List<Empresa> lista = empresaService.listarTodas()
         if (lista.isEmpty()) { println "\nNenhuma empresa."; return }
         println "\n--- Empresas ---"; lista.each { println it }
     }
 
     private void buscarPorId() {
-        try { println service.buscarPorId(lerInt("ID: ")) }
+        try { println empresaService.buscarPorId(lerInt("ID: ")) }
         catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void atualizar() {
         int id = lerInt("ID da empresa: ")
         try {
-            Empresa e = service.buscarPorId(id)
+            Empresa empresa = empresaService.buscarPorId(id)
             println "Deixe em branco para manter."
-            String nome  = ler("Nome [${e.nome}]: ");         if (nome)  e.nome = nome
-            String email = ler("Email [${e.email}]: ");       if (email) e.email = email
-            String cnpj  = ler("CNPJ [${e.cnpj}]: ");        if (cnpj)  e.cnpj = cnpj
-            String desc  = ler("Descricao [${e.descricao ?: ''}]: "); if (desc) e.descricao = desc
-            String cidade = ler("Cidade [${e.endereco.cidade ?: ''}]: "); if (cidade) e.endereco.cidade = cidade
-            String est   = ler("Estado [${e.endereco.estado ?: ''}]: "); if (est) e.endereco.estado = est
-            service.atualizar(e); println "Empresa atualizada."
+
+            String nome = ler("Nome [${empresa.nome}]: ");
+            if (nome) {
+                empresa.nome  = nome
+            }
+
+            String email = ler("Email [${empresa.email}]: ");
+            if (email){
+                empresa.email = email
+            }
+
+            String cnpj = ler("CNPJ [${empresa.cnpj}]: ");
+            if (cnpj){
+                empresa.cnpj  = cnpj
+            }
+
+            String desc = ler("Descricao [${empresa.descricao ?: ''}]: ");
+            if (desc){
+                empresa.descricao = desc
+            }
+
+            String cidade = ler("Cidade [${empresa.endereco.cidade ?: ''}]: ");
+            if (cidade){
+                empresa.endereco.cidade = cidade
+            }
+
+            String est = ler("Estado [${empresa.endereco.estado ?: ''}]: ");
+            if (est){
+                empresa.endereco.estado = est
+            }
+            empresaService.atualizar(e); println "Empresa atualizada."
         } catch (Exception ex) { println "Erro: ${ex.message}" }
     }
 
@@ -108,36 +126,27 @@ class MenuEmpresa {
         int id = lerInt("ID: ")
         print "Confirmar? (s/N): "
         if (scanner.nextLine().trim().equalsIgnoreCase('s')) {
-            service.remover(id); println "Removida."
+            empresaService.remover(id); println "Removida."
         } else { println "Cancelado." }
     }
 
     private void publicarVaga() {
         println "\n--- Nova Vaga ---"
-        Vaga v   = new Vaga()
-        v.empresaId = lerInt("ID da empresa: ")
-        v.titulo    = ler("Titulo: ")
-        v.descricao = ler("Descricao: ")
-        v.status    = ler("Status (Aberta/Fechada/Pausada) [Aberta]: ")
-        if (!v.status) v.status = 'Aberta'
-
-        v.endereco             = new Endereco()
-        v.endereco.cep         = ler("CEP da vaga: ")
-        v.endereco.logradouro  = ler("Logradouro: ")
-        v.endereco.numero      = ler("Numero: ")
-        v.endereco.bairro      = ler("Bairro: ")
-        v.endereco.cidade      = ler("Cidade: ")
-        v.endereco.estado      = ler("Estado (UF): ")
-        v.endereco.pais        = ler("Pais: ")
+        Vaga vaga = new Vaga()
+        vaga.empresaId = lerInt("ID da empresa: ")
+        vaga.titulo = ler("Titulo: ")
+        vaga.descricao = ler("Descricao: ")
+        vaga.status = ler("Status (Aberta/Fechada/Pausada) [Aberta]: ") ?: 'Aberta'
+        vaga.endereco = lerEndereco()
 
         print "Competencias (separadas por virgula): "
         String comps = scanner.nextLine().trim()
 
         try {
-            Vaga inserida = service.publicarVaga(v)
+            Vaga inserida = vagaService.publicar(v)
             if (comps) {
                 comps.split(',').each { nome ->
-                    if (nome.trim()) service.adicionarCompetenciaVaga(inserida.id, nome.trim())
+                    if (nome.trim()) vagaService.adicionarCompetencia(inserida.id, nome.trim())
                 }
             }
             println "Vaga publicada! ID: ${inserida.id}"
@@ -146,50 +155,92 @@ class MenuEmpresa {
 
     private void listarVagas() {
         try {
-            List<Vaga> vagas = service.listarVagas(lerInt("ID da empresa: "))
-            if (vagas.isEmpty()) println "\nNenhuma vaga."
-            else { println "\n--- Vagas ---"; vagas.each { println it } }
+            List<Vaga> vagas = vagaService.listarPorEmpresa(lerInt("ID da empresa: "))
+            if (vagas.isEmpty()){
+                println "\nNenhuma vaga."
+            }
+            else {
+                println "\n--- Vagas ---";
+                vagas.each {
+                    println it
+                }
+            }
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void atualizarVaga() {
         Vaga v = new Vaga(id: lerInt("ID da vaga: "), empresaId: lerInt("ID da empresa: "))
-        v.titulo    = ler("Novo titulo: ")
+        v.titulo = ler("Novo titulo: ")
         v.descricao = ler("Nova descricao: ")
-        v.status    = ler("Status: ")
-        try { service.atualizarVaga(v); println "Vaga atualizada." }
-        catch (Exception e) { println "Erro: ${e.message}" }
+        v.status = ler("Status: ")
+        try {
+            vagaService.atualizar(v); println "Vaga atualizada."
+        }
+        catch (Exception e) {
+            println "Erro: ${e.message}"
+        }
     }
 
     private void removerVaga() {
         int id = lerInt("ID da vaga: ")
         print "Confirmar? (s/N): "
         if (scanner.nextLine().trim().equalsIgnoreCase('s')) {
-            service.removerVaga(id); println "Vaga removida."
-        } else { println "Cancelado." }
+            vagaService.remover(id); println "Vaga removida."
+        } else {
+            println "Cancelado."
+        }
     }
 
     private void verCandidatosCompat() {
         try {
-            List<Candidato> lista = service.verMatchesDeCandidatos(lerInt("ID da vaga: "))
-            if (lista.isEmpty()) println "\nNenhum candidato compativel."
-            else { println "\n--- Candidatos Compativeis ---"; lista.each { println it } }
+            List<Candidato> lista = vagaService.candidatosCompativeis(lerInt("ID da vaga: "))
+            if (lista.isEmpty()) {
+                println "\nNenhum candidato compativel."
+            }
+            else {
+                println "\n--- Candidatos Compativeis ---";
+                lista.each {
+                    println it
+                }
+            }
         } catch (Exception e) { println "Erro: ${e.message}" }
     }
 
     private void curtirCandidato() {
         try {
-            service.curtirCandidato(lerInt("ID da vaga: "), lerInt("ID do candidato: "))
+            vagaService.curtirCandidato(lerInt("ID da vaga: "), lerInt("ID do candidato: "))
             println "Curtida registrada!"
-        } catch (Exception e) { println "Erro: ${e.message}" }
+        } catch (Exception e) {
+            println "Erro: ${e.message}"
+        }
     }
 
     private void verMatchesEmpresa() {
         try {
-            List<Match> matches = service.verMatchesDaEmpresa(lerInt("ID da empresa: "))
-            if (matches.isEmpty()) println "\nNenhum match."
-            else { println "\n--- Matches ---"; matches.each { println it } }
+            List<Match> matches = vagaService.matchesDaEmpresa(lerInt("ID da empresa: "))
+            if (matches.isEmpty()){
+                println "\nNenhum match."
+            }
+            else {
+                println "\n--- Matches ---";
+                matches.each {
+                    println it
+                }
+            }
         } catch (Exception e) { println "Erro: ${e.message}" }
+    }
+
+    private Endereco lerEndereco() {
+        Endereco end = new Endereco()
+        end.cep = ler("CEP: ")
+        end.logradouro = ler("Logradouro: ")
+        end.numero = ler("Numero: ")
+        end.complemento = ler("Complemento (opcional): ")
+        end.bairro = ler("Bairro: ")
+        end.cidade = ler("Cidade: ")
+        end.estado = ler("Estado (UF): ")
+        end.pais = ler("Pais: ")
+        return end
     }
 
     private String ler(String label) { print label; scanner.nextLine().trim() }

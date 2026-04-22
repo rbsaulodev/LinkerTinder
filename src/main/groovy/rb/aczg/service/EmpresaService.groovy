@@ -1,48 +1,29 @@
 package rb.aczg.service
 
-import rb.aczg.interfaces.dao.ICandidatoDAO
-import rb.aczg.interfaces.dao.ICompetenciaDAO
 import rb.aczg.interfaces.dao.IEmpresaDAO
 import rb.aczg.interfaces.dao.IEnderecoDAO
-import rb.aczg.interfaces.dao.IVagaDAO
 import rb.aczg.interfaces.service.IEmpresaService
-import rb.aczg.model.Candidato
-import rb.aczg.model.Competencia
 import rb.aczg.model.Empresa
-import rb.aczg.model.Match
-import rb.aczg.model.Vaga
 import rb.aczg.service.validation.EmpresaValidator
 
 class EmpresaService implements IEmpresaService {
 
-    private final IEmpresaDAO empresaDAO
-    private final IEnderecoDAO enderecoDAO
-    private final IVagaDAO vagaDAO
-    private final ICompetenciaDAO competenciaDAO
-    private final ICandidatoDAO candidatoDAO
+    private static final String EMPRESA_NAO_ENCONTRADA = 'Empresa #%d nao encontrada.'
+
+    private final IEmpresaDAO    empresaDAO
+    private final IEnderecoDAO   enderecoDAO
     private final EmpresaValidator validator
 
-    EmpresaService(
-            IEmpresaDAO empresaDAO,
-            IEnderecoDAO enderecoDAO,
-            IVagaDAO vagaDAO,
-            ICompetenciaDAO competenciaDAO,
-            ICandidatoDAO candidatoDAO,
-            EmpresaValidator validator) {
-        this.empresaDAO     = empresaDAO
-        this.enderecoDAO    = enderecoDAO
-        this.vagaDAO        = vagaDAO
-        this.competenciaDAO = competenciaDAO
-        this.candidatoDAO   = candidatoDAO
-        this.validator      = validator
+    EmpresaService(IEmpresaDAO empresaDAO, IEnderecoDAO enderecoDAO, EmpresaValidator validator) {
+        this.empresaDAO  = empresaDAO
+        this.enderecoDAO = enderecoDAO
+        this.validator   = validator
     }
 
     @Override
     Empresa cadastrar(Empresa empresa) {
         validator.validar(empresa)
-        if (empresa.endereco) {
-            empresa.endereco = enderecoDAO.inserir(empresa.endereco)
-        }
+        salvarEnderecoSePresente(empresa)
         return empresaDAO.inserir(empresa)
     }
 
@@ -53,17 +34,15 @@ class EmpresaService implements IEmpresaService {
 
     @Override
     Empresa buscarPorId(int id) {
-        Empresa e = empresaDAO.buscarPorId(id)
-        if (!e) throw new RuntimeException("Empresa #${id} nao encontrada.")
-        return e
+        Empresa empresa = empresaDAO.buscarPorId(id)
+        if (!empresa) throw new RuntimeException(String.format(EMPRESA_NAO_ENCONTRADA, id))
+        return empresa
     }
 
     @Override
     Empresa atualizar(Empresa empresa) {
         validator.validar(empresa)
-        if (empresa.endereco?.id) {
-            enderecoDAO.atualizar(empresa.endereco)
-        }
+        atualizarEnderecoSeExistente(empresa)
         empresaDAO.atualizar(empresa)
         return empresa
     }
@@ -73,60 +52,15 @@ class EmpresaService implements IEmpresaService {
         empresaDAO.deletar(id)
     }
 
-    @Override
-    Vaga publicarVaga(Vaga vaga) {
-        if (!vaga.titulo?.trim()) throw new IllegalArgumentException("Titulo da vaga e obrigatorio.")
-        if (vaga.endereco && !vaga.endereco.id) {
-            vaga.endereco = enderecoDAO.inserir(vaga.endereco)
+    private void salvarEnderecoSePresente(Empresa empresa) {
+        if (empresa.endereco) {
+            empresa.endereco = enderecoDAO.inserir(empresa.endereco)
         }
-        return vagaDAO.inserir(vaga)
     }
 
-    @Override
-    List<Vaga> listarVagas(int empresaId) {
-        return vagaDAO.listarPorEmpresa(empresaId)
-    }
-
-    @Override
-    Vaga atualizarVaga(Vaga vaga) {
-        vagaDAO.atualizar(vaga)
-        return vaga
-    }
-
-    @Override
-    void removerVaga(int vagaId) {
-        vagaDAO.deletar(vagaId)
-    }
-
-    @Override
-    void adicionarCompetenciaVaga(int vagaId, String nomeCompetencia) {
-        Competencia comp = competenciaDAO.inserir(new Competencia(nome: nomeCompetencia))
-        competenciaDAO.vincularVaga(vagaId, comp.id)
-        println "Competencia '${comp.nome}' adicionada a vaga #${vagaId}."
-    }
-
-    @Override
-    void removerCompetenciaVaga(int vagaId, int competenciaId) {
-        competenciaDAO.desvincularVaga(vagaId, competenciaId)
-        println "Competencia #${competenciaId} removida da vaga #${vagaId}."
-    }
-
-    @Override
-    void curtirCandidato(int vagaId, int candidatoId) {
-        vagaDAO.curtirCandidato(vagaId, candidatoId)
-        vagaDAO.gerarMatchSeAmbosCurtiram(candidatoId, vagaId)
-    }
-
-    @Override
-    List<Candidato> verMatchesDeCandidatos(int vagaId) {
-        return candidatoDAO.matchPorVaga(vagaId)
-    }
-
-    @Override
-    List<Match> verMatchesDaEmpresa(int empresaId) {
-        List<Vaga> vagas = vagaDAO.listarPorEmpresa(empresaId)
-        List<Match> matches = []
-        vagas.each { vaga -> matches.addAll(vagaDAO.listarMatchesPorVaga(vaga.id)) }
-        return matches
+    private void atualizarEnderecoSeExistente(Empresa empresa) {
+        if (empresa.endereco?.id) {
+            enderecoDAO.atualizar(empresa.endereco)
+        }
     }
 }
