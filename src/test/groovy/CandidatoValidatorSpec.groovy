@@ -102,10 +102,10 @@ class CandidatoValidatorSpec extends Specification {
 
     private Candidato candidatoValido() {
         new Candidato(
-            nome:      'Sandubinha',
+            nome: 'Sandubinha',
             sobrenome: 'Silva',
-            email:     'sand@email.com',
-            cpf:       '12345678900',
+            email: 'sand@email.com',
+            cpf: '12345678900',
             dataNasc:  LocalDate.of(2000, 1, 1)
         )
     }

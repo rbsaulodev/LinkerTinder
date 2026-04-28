@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VagaServiceSpec" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-04-22T13:52:34.385Z" hostname="fedora" time="0.382">
+  <properties/>
+  <testcase name="publicar deve ignorar endereco que ja tem id" classname="VagaServiceSpec" time="0.062"/>
+  <testcase name="publicar deve lancar excecao quando titulo e nulo" classname="VagaServiceSpec" time="0.022"/>
+  <testcase name="publicar deve lancar excecao quando titulo e vazio" classname="VagaServiceSpec" time="0.006"/>
+  <testcase name="buscarPorId deve retornar vaga quando encontrada" classname="VagaServiceSpec" time="0.012"/>
+  <testcase name="buscarPorId deve lancar excecao quando vaga nao existe" classname="VagaServiceSpec" time="0.009"/>
+  <testcase name="listarPorEmpresa deve delegar ao DAO" classname="VagaServiceSpec" time="0.007"/>
+  <testcase name="atualizar deve chamar DAO e retornar a vaga" classname="VagaServiceSpec" time="0.007"/>
+  <testcase name="remover deve delegar ao DAO com id correto" classname="VagaServiceSpec" time="0.006"/>
+  <testcase name="removerCompetencia deve desvincular" classname="VagaServiceSpec" time="0.169"/>
+  <testcase name="curtirCandidato deve registrar curtida e tentar gerar match" classname="VagaServiceSpec" time="0.006"/>
+  <testcase name="curtirCandidato deve notificar observers quando match e gerado" classname="VagaServiceSpec" time="0.023"/>
+  <testcase name="curtirCandidato NAO deve notificar observers quando match nao ocorre" classname="VagaServiceSpec" time="0.004"/>
+  <testcase name="deve notificar todos os observers registrados dinamicamente" classname="VagaServiceSpec" time="0.006"/>
+  <testcase name="candidatosCompativeis deve delegar ao candidatoDAO" classname="VagaServiceSpec" time="0.008"/>
+  <testcase name="matchesDaEmpresa deve agregar matches de todas as vagas" classname="VagaServiceSpec" time="0.022"/>
+  <testcase name="matchesDaEmpresa deve retornar lista vazia quando empresa nao tem vagas" classname="VagaServiceSpec" time="0.002"/>
+  <system-out><![CDATA[Competencia #20 removida da vaga #5.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

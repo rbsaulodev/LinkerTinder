@@ -5,16 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="022eed36-60e0-43d6-b9fe-1983ed05091a" name="Changes" comment="feat: Adiciona pattern factory no Banco de Dados">
-      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/observer/LogMatchObserver.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/observer/NotificacaoMatchObserver.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/ConexaoBD.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/ICandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/ICandidatoService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/IEmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/interfaces/service/IEmpresaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CandidatoService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/CompetenciaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/service/EmpresaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/dao/ConexaoBD.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/dao/ConexaoBD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/interfaces/service/IEmpresaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/interfaces/service/IEmpresaService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/CandidatoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/CandidatoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/CompetenciaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/CompetenciaService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/EmpresaService$_verMatchesDaEmpresa_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/EmpresaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/service/EmpresaService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_listarTodas_closure1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_listarTodas_closure1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_listarVagas_closure3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_listarVagas_closure3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_publicarVaga_closure2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_publicarVaga_closure2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verCandidatosCompat_closure4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verCandidatosCompat_closure4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verMatchesEmpresa_closure5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa$_verMatchesEmpresa_closure5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuEmpresa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/MenuPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/EmpresaValidatorSpec.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-EmpresaValidatorSpec.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuEmpresa.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuPrincipal.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/MenuPrincipal.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/CandidatoValidatorSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/CandidatoValidatorSpec.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,12 +93,12 @@
     &quot;assignee&quot;: &quot;rbsaulodev&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/rbsaulodev/LinkerTinder.git",
-    "accountId": "467c01fe-de3a-4703-a892-8d7d97608402"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/rbsaulodev/LinkerTinder.git&quot;,
+    &quot;accountId&quot;: &quot;467c01fe-de3a-4703-a892-8d7d97608402&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -87,46 +107,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build LinkerTinder.executor": "Run",
-    "Gradle.CandidatoServiceSpec.adicionarCompetencia deve inserir e vincular.executor": "Run",
-    "Gradle.CandidatoServiceSpec.executor": "Run",
-    "Gradle.CandidatoValidatorSpec.executor": "Run",
-    "Gradle.CompetenciaServiceSpec.executor": "Run",
-    "Gradle.EmpresaServiceSpec.executor": "Run",
-    "Gradle.EmpresaValidatorSpec.executor": "Run",
-    "Gradle.LinkerTinder [:com.linketinder.ui.MenuPrincipal.main()].executor": "Run",
-    "Gradle.LinkerTinder [:org.example.main.Linketinder.main()].executor": "Run",
-    "Gradle.LinkerTinder [:rb.aczg.view.MenuPrincipal.main()].executor": "Run",
-    "Gradle.LinkerTinder [dependencies].executor": "Run",
-    "Gradle.LinkerTinder [run].executor": "Run",
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "Groovy.Main.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/rb-linux/git/LinkerTinder/src/main/groovy/rb/aczg/dao/factory",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build LinkerTinder.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CandidatoServiceSpec.adicionarCompetencia deve inserir e vincular.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CandidatoServiceSpec.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CandidatoValidatorSpec.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CompetenciaServiceSpec.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmpresaServiceSpec.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmpresaValidatorSpec.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LinkerTinder [:com.linketinder.ui.MenuPrincipal.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LinkerTinder [:org.example.main.Linketinder.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LinkerTinder [:rb.aczg.view.MenuPrincipal.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LinkerTinder [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LinkerTinder [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;Groovy.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/rb-linux/git/Desafio-Dojo2-ACZG9-G1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/factory" />
@@ -298,6 +318,7 @@
       <workItem from="1776799566503" duration="5000" />
       <workItem from="1776803527375" duration="3000" />
       <workItem from="1776863103283" duration="2041000" />
+      <workItem from="1777002652923" duration="25000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Adiciona pattern factory no Banco de Dados">
       <option name="closed" value="true" />
