@@ -73,8 +73,6 @@ class CandidatoServlet extends BaseServlet {
         }
     }
 
-
-
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         int id = extractId(req)

@@ -24,56 +24,24 @@ API RESTful do Linketinder implementada em **Groovy + Gradle + Apache Tomcat 10*
 | Gradle | via wrapper `./gradlew` (já incluso no projeto) |
 | Apache Tomcat 10 | `sudo dnf install tomcat tomcat-webapps` |
 | PostgreSQL | `sudo dnf install postgresql postgresql-server` |
-| Docker (opcional) | `sudo dnf install docker` |
 
 ---
 
 ## Portas utilizadas
 
-| Serviço | Porta |
-|---|---|
+| Serviço | Porta  |
+|---|--------|
 | Tomcat (API) | `8080` |
-| PostgreSQL local | `5433` |
-| PostgreSQL Docker | `5432` |
-
-> **Atenção:** se o PostgreSQL local e o Docker estiverem rodando ao mesmo tempo, eles precisam estar em portas diferentes para não conflitar. A configuração acima já resolve isso.
+| PostgreSQL local | `5432` |
 
 ---
 
-## Configuração do banco de dados
-
-### 1. Mudar a porta do PostgreSQL local (se usar Docker na 5432)
-
-```bash
-# Abre o arquivo de configuração
-sudo nano /var/lib/pgsql/data/postgresql.conf
-```
-
-Encontra e edita a linha:
-```
-# Tira o # e troca para 5433
-port = 5433
-```
-
-Salva: `Ctrl+O` → `Enter` → `Ctrl+X`
-
-Reinicia o PostgreSQL:
-```bash
-sudo systemctl restart postgresql
-```
-
-Confirma que mudou:
-```bash
-sudo ss -tlnp | grep postgres
-# Deve aparecer *:5433
-```
-
-### 2. Configurar as credenciais no projeto
+### 1. Configurar as credenciais no projeto
 
 Edita o arquivo `src/main/resources/database.properties`:
 
 ```properties
-url=jdbc:postgresql://localhost:5433/linketinder
+url=jdbc:postgresql://localhost:5432/linketinder
 usuario=postgres
 senha=sua_senha_aqui
 ```

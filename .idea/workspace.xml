@@ -5,58 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="022eed36-60e0-43d6-b9fe-1983ed05091a" name="Changes" comment="feat: Adiciona pattern factory no Banco de Dados">
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.1.0/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/dao/factory/H2ConnectionFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewCandidato$_listarTodos_closure1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewCandidato$_verMatches_closure2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewCandidato.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewCompetencia$_listarTodas_closure1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewCompetencia.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewEmpresa$_listarTodas_closure1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewEmpresa$_listarVagas_closure2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewEmpresa$_verCandidatosCompat_closure3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewEmpresa$_verMatchesEmpresa_closure4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewEmpresa.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/rb/aczg/view/ViewPrincipal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/CandidatoServiceSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/CandidatoValidatorSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/CompetenciaServiceSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/EmpresaServiceSpec$__spock_feature_0_2_closure1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/EmpresaServiceSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/EmpresaValidatorSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/groovy/test/VagaServiceSpec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/VagaServiceSpec.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-VagaServiceSpec.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/dao/factory/H2ConnectionFactory.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/ViewCandidato.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/ViewCompetencia.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/ViewEmpresa.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/view/ViewPrincipal.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/servlet/CandidatoServlet.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/servlet/CandidatoServlet.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/rb/aczg/servlet/CompetenciaServlet.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/rb/aczg/servlet/CompetenciaServlet.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -337,6 +290,9 @@
       <workItem from="1778031954925" duration="17000" />
       <workItem from="1778033987342" duration="385000" />
       <workItem from="1778091490823" duration="3680000" />
+      <workItem from="1778118490411" duration="894000" />
+      <workItem from="1778122783616" duration="20000" />
+      <workItem from="1778151526129" duration="1733000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Adiciona pattern factory no Banco de Dados">
       <option name="closed" value="true" />
