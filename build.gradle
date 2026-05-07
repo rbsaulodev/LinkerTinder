@@ -1,6 +1,7 @@
 plugins {
     id 'groovy'
     id 'application'
+    id 'war'
 }
 
 group   = 'rb.aczg'
@@ -17,33 +18,15 @@ repositories {
 }
 
 dependencies {
-    // Groovy embutido no Gradle — compatível com Java 21
     implementation localGroovy()
-
-    // PostgreSQL JDBC Driver
     implementation 'org.postgresql:postgresql:42.7.3'
-
-    // Spock Framework para testes unitários
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
-
-    // JUnit Platform para Gradle executar os testes Spock
     testImplementation 'org.junit.platform:junit-platform-launcher:1.10.2'
 }
 
-application {
-    mainClass = 'rb.aczg.view.MenuPrincipal'
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'rb.aczg.view.MenuPrincipal'
-    }
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+war {
+    archiveFileName = 'linketinder.war'
 }
 
 test {

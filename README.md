@@ -1,73 +1,318 @@
-# Linketinder
+# Linketinder – REST API
 
-**Autor:** Saulo Rodrigues Brilhante
-
-Sistema de match entre candidatos e vagas, inspirado no LinkedIn com mecânica de curtidas mútuas (estilo Tinder).
+API RESTful do Linketinder implementada em **Groovy + Gradle + Apache Tomcat 10**, usando **jakarta.servlet** como lib Java para os endpoints — sem frameworks web (Spring, Micronaut, Grails, etc.).
 
 ---
 
-## Design Patterns aplicados
+## Índice
 
-### 1. Factory — `IConnectionFactory`
+1. [Pré-requisitos](#pré-requisitos)
+2. [Portas utilizadas](#portas-utilizadas)
+3. [Configuração do banco de dados](#configuração-do-banco-de-dados)
+4. [Como executar](#como-executar)
+5. [Endpoints disponíveis](#endpoints-disponíveis)
+6. [Exemplos de requisição](#exemplos-de-requisição-curl)
+7. [Referências](#referências)
 
-**Onde:** `interfaces/factory/IConnectionFactory.groovy`, `dao/factory/PostgresConnectionFactory.groovy`, `dao/factory/H2ConnectionFactory.groovy`
+---
 
-**Por quê:** Os DAOs dependiam diretamente de `ConexaoBD`, que estava acoplada ao driver do PostgreSQL. Com a Factory, a criação de conexões ficou isolada em implementações intercambiáveis. Trocar de PostgreSQL para H2 (ou qualquer outro banco) é uma linha no `MenuPrincipal` — nenhum DAO ou service precisa mudar.
+## Pré-requisitos
 
-```groovy
-// produção
-ConexaoBD.configurar(new PostgresConnectionFactory())
+| Ferramenta | Instalação (Fedora) |
+|---|---|
+| Java 21 | `sudo dnf install java-21-openjdk` |
+| Gradle | via wrapper `./gradlew` (já incluso no projeto) |
+| Apache Tomcat 10 | `sudo dnf install tomcat tomcat-webapps` |
+| PostgreSQL | `sudo dnf install postgresql postgresql-server` |
+| Docker (opcional) | `sudo dnf install docker` |
 
-// testes de integração
-ConexaoBD.configurar(new H2ConnectionFactory())
+---
+
+## Portas utilizadas
+
+| Serviço | Porta |
+|---|---|
+| Tomcat (API) | `8080` |
+| PostgreSQL local | `5433` |
+| PostgreSQL Docker | `5432` |
+
+> **Atenção:** se o PostgreSQL local e o Docker estiverem rodando ao mesmo tempo, eles precisam estar em portas diferentes para não conflitar. A configuração acima já resolve isso.
+
+---
+
+## Configuração do banco de dados
+
+### 1. Mudar a porta do PostgreSQL local (se usar Docker na 5432)
+
+```bash
+# Abre o arquivo de configuração
+sudo nano /var/lib/pgsql/data/postgresql.conf
+```
+
+Encontra e edita a linha:
+```
+# Tira o # e troca para 5433
+port = 5433
+```
+
+Salva: `Ctrl+O` → `Enter` → `Ctrl+X`
+
+Reinicia o PostgreSQL:
+```bash
+sudo systemctl restart postgresql
+```
+
+Confirma que mudou:
+```bash
+sudo ss -tlnp | grep postgres
+# Deve aparecer *:5433
+```
+
+### 2. Configurar as credenciais no projeto
+
+Edita o arquivo `src/main/resources/database.properties`:
+
+```properties
+url=jdbc:postgresql://localhost:5433/linketinder
+usuario=postgres
+senha=sua_senha_aqui
 ```
 
 ---
 
-### 2. Singleton — `ConexaoBD`
+## Como executar
 
-**Onde:** `dao/ConexaoBD.groovy`
+### 1. Gerar o WAR
 
-**Por quê:** A factory de conexões é um recurso compartilhado que deve ter uma única instância na aplicação. O Singleton garante isso com `synchronized` para segurança em ambientes multi-thread. O método `configurar()` permite substituir a factory antes do primeiro uso, mantendo o Singleton testável.
+```bash
+./gradlew clean war
+```
 
-```groovy
-static synchronized ConexaoBD instancia()         // obtém ou cria
-static synchronized void configurar(factory)      // substitui (testes)
-static synchronized void resetar()                // limpa entre testes
+O arquivo gerado fica em: `build/libs/linketinder.war`
+
+### 2. Parar o Tomcat e limpar deploy antigo
+
+```bash
+sudo systemctl stop tomcat
+sudo rm -rf /var/lib/tomcat/webapps/linketinder
+sudo rm -f  /var/lib/tomcat/webapps/linketinder.war
+```
+
+### 3. Copiar o WAR novo e subir o Tomcat
+
+```bash
+sudo cp build/libs/linketinder.war /var/lib/tomcat/webapps/
+sudo systemctl daemon-reload
+sudo systemctl start tomcat
+```
+
+### 4. Verificar se subiu corretamente
+
+```bash
+sudo journalctl -u tomcat -f
+```
+
+Quando aparecer essa linha, está funcionando:
+```
+Deployment of web application archive [/var/lib/tomcat/webapps/linketinder.war] has finished
+```
+
+### 5. Testar no navegador ou Bruno/Insomnia/Postman
+
+```
+http://localhost:8080/linketinder/api/candidatos
 ```
 
 ---
 
-### 3. Observer — `MatchObserver`
+## Endpoints disponíveis
 
-**Onde:** `interfaces/observer/MatchObserver.groovy`, `service/observer/LogMatchObserver.groovy`, `service/observer/NotificacaoMatchObserver.groovy`
+### Candidatos
 
-**Por quê:** O match mútuo é um **evento de domínio** — quando acontece, vários subsistemas precisam reagir (log, notificação, ranking futuro). Sem Observer, cada reação ficaria misturada dentro de `curtirVaga`/`curtirCandidato`, violando o princípio Aberto/Fechado. Com Observer, adicionar uma nova reação é criar uma nova classe que implementa `MatchObserver` e registrá-la no `MenuPrincipal`.
+| Método | URI | Ação | Status |
+|---|---|---|---|
+| `GET` | `/api/candidatos` | Lista todos | 200 |
+| `GET` | `/api/candidatos/{id}` | Busca por ID | 200 |
+| `POST` | `/api/candidatos` | Cadastra novo | 201 |
+| `PUT` | `/api/candidatos/{id}` | Atualiza | 200 |
+| `DELETE` | `/api/candidatos/{id}` | Remove | 204 |
 
-```groovy
-// registrar
-candidatoService.registrarObserver(new LogMatchObserver())
-candidatoService.registrarObserver(new NotificacaoMatchObserver())
+### Empresas
 
-// disparo automático quando match ocorre
-void curtirVaga(int candidatoId, int vagaId) {
-    Match match = vagaDAO.gerarMatchSeAmbosCurtiram(candidatoId, vagaId)
-    if (match) notificarObservers(match)  // todos os observers recebem
+| Método | URI | Ação | Status |
+|---|---|---|---|
+| `GET` | `/api/empresas` | Lista todas | 200 |
+| `GET` | `/api/empresas/{id}` | Busca por ID | 200 |
+| `POST` | `/api/empresas` | Cadastra nova | 201 |
+| `PUT` | `/api/empresas/{id}` | Atualiza | 200 |
+| `DELETE` | `/api/empresas/{id}` | Remove | 204 |
+
+### Vagas
+
+| Método | URI | Ação | Status |
+|---|---|---|---|
+| `GET` | `/api/vagas` | Lista todas | 200 |
+| `GET` | `/api/vagas?empresa={id}` | Filtra por empresa | 200 |
+| `GET` | `/api/vagas/{id}` | Busca por ID | 200 |
+| `POST` | `/api/vagas` | Insere nova | 201 |
+| `PUT` | `/api/vagas/{id}` | Atualiza | 200 |
+| `DELETE` | `/api/vagas/{id}` | Remove | 204 |
+
+### Competências
+
+| Método | URI | Ação | Status |
+|---|---|---|---|
+| `GET` | `/api/competencias` | Lista todas | 200 |
+| `POST` | `/api/competencias` | Cadastra nova | 201 |
+
+---
+
+## Exemplos de requisição (JSON)
+### Candidatos
+
+**POST** `/api/candidatos`
+```json
+{
+  "nome": "Sandubinha",
+  "sobrenome": "Silva",
+  "email": "sandubinha@email.com",
+  "cpf": "12345678900",
+  "dataNasc": "2000-05-15",
+  "descricao": "Desenvolvedor Groovy apaixonado por tecnologia",
+  "senhaHash": "123456",
+  "endereco": {
+    "cep": "01310-100",
+    "logradouro": "Avenida Paulista",
+    "numero": "1000",
+    "complemento": "Apto 42",
+    "bairro": "Bela Vista",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "pais": "Brasil"
+  },
+  "competencias": [
+    { "nome": "Groovy", "nivel": "Pleno" },
+    { "nome": "PostgreSQL", "nivel": "Júnior" }
+  ]
+}
+```
+
+**PUT** `/api/candidatos/1`
+```json
+{
+  "nome": "Sandubinha",
+  "sobrenome": "Santos",
+  "email": "sandubinha.novo@email.com",
+  "cpf": "12345678900",
+  "dataNasc": "2000-05-15",
+  "descricao": "Descrição atualizada"
 }
 ```
 
 ---
 
-### 4. Extração de VagaService (SRP / Clean Code)
+### Empresas
 
-**Onde:** `interfaces/service/IVagaService.groovy`, `service/VagaService.groovy`
+**POST** `/api/empresas`
+```json
+{
+  "nome": "TechCorp Ltda",
+  "cnpj": "12345678000190",
+  "email": "rh@techcorp.com",
+  "descricao": "Empresa de tecnologia inovadora",
+  "senhaHash": "123456",
+  "endereco": {
+    "cep": "04538-133",
+    "logradouro": "Rua Funchal",
+    "numero": "418",
+    "complemento": "Andar 5",
+    "bairro": "Vila Olímpia",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "pais": "Brasil"
+  }
+}
+```
 
-**Por quê:** `EmpresaService` acumulava responsabilidades de dois domínios: empresa e vaga. `Vaga` tem ciclo de vida próprio (publicar, curtir candidato, gerar match) e não pertence ao service de empresa. A extração aplica o **Princípio da Responsabilidade Única**, tornando cada classe menor, mais coesa e mais fácil de testar isoladamente.
+**PUT** `/api/empresas/1`
+```json
+{
+  "nome": "TechCorp Atualizada",
+  "cnpj": "12345678000190",
+  "email": "contato@techcorp.com",
+  "descricao": "Descrição atualizada da empresa"
+}
+```
 
-| Antes | Depois |
+---
+
+### Vagas
+
+**POST** `/api/vagas`
+```json
+{
+  "empresaId": 1,
+  "titulo": "Desenvolvedor Groovy Pleno",
+  "descricao": "Vaga para desenvolvedor com experiência em Groovy e PostgreSQL",
+  "status": "Aberta",
+  "competencias": [
+    { "nome": "Groovy", "obrigatorio": true },
+    { "nome": "PostgreSQL", "obrigatorio": true },
+    { "nome": "Docker", "obrigatorio": false }
+  ]
+}
+```
+
+**PUT** `/api/vagas/1`
+```json
+{
+  "empresaId": 1,
+  "titulo": "Desenvolvedor Groovy Sênior",
+  "descricao": "Vaga atualizada para nível sênior",
+  "status": "Aberta"
+}
+```
+
+---
+
+### Competências
+
+**POST** `/api/competencias`
+```json
+{
+  "nome": "Groovy"
+}
+```
+
+---
+
+### GETs e DELETEs (sem body)
+
+| Método | URL |
 |---|---|
-| `EmpresaService` com 13 métodos | `EmpresaService` com 5 métodos (CRUD) |
-| Tudo numa interface | `IEmpresaService` + `IVagaService` separados |
-| `MenuEmpresa` com 1 serviço | `MenuEmpresa` com 2 serviços injetados |
+| GET | `http://localhost:8080/linketinder/api/candidatos` |
+| GET | `http://localhost:8080/linketinder/api/candidatos/1` |
+| GET | `http://localhost:8080/linketinder/api/empresas` |
+| GET | `http://localhost:8080/linketinder/api/empresas/1` |
+| GET | `http://localhost:8080/linketinder/api/vagas` |
+| GET | `http://localhost:8080/linketinder/api/vagas/1` |
+| GET | `http://localhost:8080/linketinder/api/vagas?empresa=1` |
+| GET | `http://localhost:8080/linketinder/api/competencias` |
+| DELETE | `http://localhost:8080/linketinder/api/candidatos/1` |
+| DELETE | `http://localhost:8080/linketinder/api/empresas/1` |
+| DELETE | `http://localhost:8080/linketinder/api/vagas/1` |
+---
 
+## Referências
+
+### YouTube — Servlets e REST sem framework
+
+**Servlet & JSP Full Course — Telusko**
+Cobre `HttpServlet`, `doGet`, `doPost` e configuração do Tomcat do zero.
+🔗 https://www.youtube.com/watch?v=OuBUUkQfBYM
+---
+
+**Baeldung — @WebServlet annotation**
+Referência completa sobre `@WebServlet`, `urlPatterns` e atributos da anotação.
+🔗 https://www.baeldung.com/javaee-web-annotations
 
